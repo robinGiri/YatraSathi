@@ -1,5 +1,7 @@
 package view;
 
+import javax.swing.JOptionPane;
+
 import controller.RegisterController;
 
 public class Register extends javax.swing.JFrame {
@@ -159,6 +161,10 @@ public class Register extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         RegisterController registerController = new RegisterController();
         registerController.register(jTextField1.getText(), jTextField2.getText(), jTextField3.getText());
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+        JOptionPane.showMessageDialog(null, "Login Successful");
     }
 
     /**
