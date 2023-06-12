@@ -15,13 +15,13 @@ public class LoginController {
         System.out.println(username);
         System.out.println(password);
         connection = dbConnection.connection;
-        String query = "SELECT password FROM users WHERE name = ?";        
+        String query = "SELECT pass FROM users WHERE username = ?";        
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(0, username);
+            preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                if(resultSet.getString("password").equals(password)){
+                if(resultSet.getString("pass").equals(password)){
                     return true;
                 }
             }
