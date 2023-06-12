@@ -13,12 +13,12 @@ public class RegisterController {
     public Boolean register(String username, String password, String email) {
 
         connection = dbConnection.connection;
-        String query = "insert into users (username, password, email) values (?, ?, ?)";
+        String query = "insert into users (username, pass, email) values (?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(0, username);
-            preparedStatement.setString(1, password);
-            preparedStatement.setString(2, email);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            preparedStatement.setString(3, email);
             int status = preparedStatement.executeUpdate();
 
             if(status > 0){

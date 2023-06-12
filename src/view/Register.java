@@ -160,7 +160,7 @@ public class Register extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         RegisterController registerController = new RegisterController();
-        registerController.register(jTextField1.getText(), jTextField2.getText(), jTextField3.getText());
+        registerController.register(jTextField1.getText(), jTextField3.getText(), jTextField2.getText());
         Login login = new Login();
         login.setVisible(true);
         this.dispose();
