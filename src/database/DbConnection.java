@@ -30,13 +30,13 @@ public class DbConnection {
 
             String username = "root";
 
-            String password = "Kavi123%4";
+            String password = "admin";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             connection = DriverManager.getConnection(
 
-                    "jdbc:mysql://localhost:3306/LED",username,password);
+                    "jdbc:mysql://localhost:3306/led",username,password);
 
 
 
@@ -107,11 +107,11 @@ public class DbConnection {
     }
 
 
+    // public static void main(String[] args) {
 
-    public static void main(String[] args) {
+    //     DbConnection db = new DbConnection();
+        
 
-        DbConnection db = new DbConnection();
-
-    }
+    // }
 
 }

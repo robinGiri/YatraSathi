@@ -10,12 +10,11 @@ public class Customer {
     private int subscriptionId;
     private int rentalId;
 
-    public Customer(int customerId, String customerName, String address, String contact, String imagePath, int subscriptionId, int rentalId) {
+    public Customer(int customerId, String customerName, String address, String contact, int subscriptionId, int rentalId) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.address = address;
         this.contact = contact;
-        this.imagePath = imagePath;
         this.subscriptionId = subscriptionId;
         this.rentalId = rentalId;
     }
