@@ -5,15 +5,21 @@ public class Admin {
     private String name;
     private String address;
     private String contact;
-    private String username;
+    private String email;
     private String password;
 
-    public Admin(int id, String name, String address, String contact, String username, String password) {
+    public Admin(int id, String name, String address, String contact, String email, String password) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.contact = contact;
-        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Admin(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
         this.password = password;
     }
 
@@ -47,11 +53,11 @@ public class Admin {
     public void setContact(String contact) {
         this.contact = contact;
     }
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
     public String getPassword() {
         return password;
