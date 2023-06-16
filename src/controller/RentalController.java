@@ -39,8 +39,7 @@ public class RentalController {
         for (Rental rental : rentalsList) {
             System.out.println(rental.getRental_id() + " | " + rental.getRental_datetime() + " | "
                     + rental.getReturn_datetime() + " | " + rental.getTotal_price() + " | " + rental.getOwner_id()
-                    + " | " + rental.getCar_id() + " | " + rental.getCategory_id() + " | " + rental.getCustomer_id()
-                    + " | " + rental.getRental_status() + " | " + rental.getPickup() + " | " + rental.getDropoff()
+                    + " | " + rental.getCar_id() + " | " + rental.getCategory_id() + " | " + rental.getCustomer_id() + " | " + rental.getRental_status() + " | " + rental.getPickup() + " | " + rental.getDropoff()
                     + " | " + rental.getDriver_id() + " | " + rental.getPayment_id());
         }
     }
