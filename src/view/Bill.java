@@ -131,7 +131,7 @@ public class Bill extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Car car = new Car();
+        CarView car = new CarView();
         car.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
