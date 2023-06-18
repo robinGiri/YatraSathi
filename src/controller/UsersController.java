@@ -37,6 +37,7 @@ public class UsersController {
     public static void main(String[] args) {
         // Creating an instance of UsersController
         UsersController usersController = new UsersController();
+
         usersController.showUserList();
     }
 }

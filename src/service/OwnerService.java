@@ -1,4 +1,4 @@
-package service;
+package service;    
 
 import database.DbConnection;
 import model.Owner;
@@ -120,4 +120,5 @@ public class OwnerService {
         }
         return ownerList;
     }
+
 }
