@@ -22,9 +22,6 @@ public class SubscriptionController {
     //Show list of the subscription type;
     public void showSubscriptionList(){
         for (Subscription sublist :  subscriptionservices.listSubscription()){
-            System.out.println(sublist.getType()+ "\t");
-            System.out.println(sublist.getDiscountRate() + "\t");
-            System.out.println(sublist.getSubscriptionId()+"\n");
             
         }
     }
