@@ -5,14 +5,14 @@ import database.DbConnection;
 import model.Car;
 import java.util.ArrayList;
 
-public class CarService {
+public class CarService implements ICarService {
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
     private DbConnection dbConnection = new DbConnection();
 
     // Check if the car table exists, create it if not
-    public boolean checkTableCar() {
+    private boolean checkTableCar() {
         connection = dbConnection.connection;
         String query = "CREATE TABLE IF NOT EXISTS car (" +
                 "carId INT PRIMARY KEY, " +
