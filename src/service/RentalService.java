@@ -5,7 +5,7 @@ import database.DbConnection;
 import model.Rental;
 import java.util.ArrayList;
 
-public class RentalService {
+public class RentalService implements IRentalService {
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
