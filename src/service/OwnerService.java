@@ -41,7 +41,8 @@ public class OwnerService {
     public boolean createOwner(Owner owner) {
         checkTableOwner();
         connection = dbConnection.connection;
-        String query = "INSERT INTO owner (owner_name, address, contact, username, password, admin_id, account_status) " +
+        String query = "INSERT INTO owner (owner_name, address, contact, username, password, admin_id, account_status) "
+                +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -112,13 +113,24 @@ public class OwnerService {
                 String password = resultSet.getString("password");
                 int admin_id = resultSet.getInt("admin_id");
                 String account_status = resultSet.getString("account_status");
-                Owner owner = new Owner(owner_id, owner_name, address, contact, username, password, admin_id, account_status);
+                Owner owner = new Owner(owner_id, owner_name, address, contact, username, password, admin_id,
+                        account_status);
                 ownerList.add(owner);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return ownerList;
+    }
+
+    public static void main(String[] args) {
+        OwnerService ownerService = new OwnerService();
+
+        Owner owner1 = new Owner(0, "Ukran Tandukar", "Maitidevi", "9847344775", "Kraken", "password", 1, "active");
+        Owner owner2 = new Owner(0, "Sandesh Khatiwada", "Kapan", "9876543210", "Sandy", "newpassword", 2, "inactive");
+        ownerService.createOwner(owner1);
+        ownerService.createOwner(owner2);
+
     }
 
 }

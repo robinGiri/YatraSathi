@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Owner;
 
 public class DriverService {
     private PreparedStatement preparedStatement;
@@ -108,5 +109,16 @@ public class DriverService {
         }
         return driverList;
     }
+    public static void main(String[] args) {
+
+    DriverService driverService = new DriverService();
+
+
+    Driver driver1 = new Driver(0, "Ukran Tandukar", new java.sql.Date(System.currentTimeMillis()), "10%", "9847344775");
+    Driver driver2 = new Driver(0, "Sandesh Khatiwada", new java.sql.Date(System.currentTimeMillis()), "15%", "9876543210");
+    
+    driverService.createDriver(driver1);
+    driverService.createDriver(driver2);
 }
 
+}

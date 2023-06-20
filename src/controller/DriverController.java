@@ -49,7 +49,7 @@ public class DriverController {
 //        driversController.showDriverList();
 //
 //        // Deleting a driver
-//        boolean deleteDriverStatus = driversController.deleteDriver(2);
+//        boolean deleteDriverStatus = driversController.deleteDriver(1);
 //        System.out.println("Delete Driver Status: " + deleteDriverStatus);
 //
 

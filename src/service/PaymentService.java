@@ -111,5 +111,16 @@ public class PaymentService {
         }
         return paymentList;
     }
+    
+    public static void main(String[]args) {
+    PaymentService paymentService = new PaymentService();
+        
+    Payment payment1 = new Payment(1, 1, 100.0,new java.sql.Date(System.currentTimeMillis()), 1);
+    Payment payment2 = new Payment(2, 2, 150.0, new java.sql.Date(System.currentTimeMillis()), 1);
 
+    paymentService.createPayment(payment1);
+    paymentService.createPayment(payment2);
+
+}
+    
 }
