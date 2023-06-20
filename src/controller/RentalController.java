@@ -37,6 +37,8 @@ public class RentalController {
     public void showRentalList() {
         ArrayList<Rental> rentalsList = rentalService.listRentals();
         for (Rental rental : rentalsList) {
+
+
         }
     }
 }
