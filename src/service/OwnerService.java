@@ -9,14 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OwnerService {
+public class OwnerService implements IOwnerService {
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
     private DbConnection dbConnection = new DbConnection();
 
     // It checks the table and creates a new table if it does not exist
-    public boolean checkTableOwner() {
+    private boolean checkTableOwner() {
         connection = dbConnection.connection;
         String query = "CREATE TABLE IF NOT EXISTS owner (" +
                 "owner_id INT AUTO_INCREMENT PRIMARY KEY, " +

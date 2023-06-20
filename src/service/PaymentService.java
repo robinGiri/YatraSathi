@@ -5,14 +5,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import database.DbConnection;
 
-public class PaymentService {
+public class PaymentService implements IPaymentService{
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
     private DbConnection dbConnection = new DbConnection();
 
     // Check if the payment table exists, create it if not
-    public boolean checkTablePayment() {
+    private boolean checkTablePayment() {
         connection = dbConnection.connection;
         String query = "CREATE TABLE IF NOT EXISTS payment (" +
                 "paymentId INT PRIMARY KEY, " +

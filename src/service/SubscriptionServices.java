@@ -5,7 +5,7 @@ import database.DbConnection;
 import model.Subscription;
 import java.util.*;
 
-public class SubscriptionServices {
+public class SubscriptionServices implements ISubscriptionService {
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;

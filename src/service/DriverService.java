@@ -8,9 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.Owner;
 
-public class DriverService {
+public class DriverService implements IDriverService{
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
