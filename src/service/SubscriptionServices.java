@@ -5,7 +5,7 @@ import database.DbConnection;
 import model.Subscription;
 import java.util.*;
 
-public class SubscriptionServices {
+public class SubscriptionServices implements ISubscriptionService {
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
@@ -100,4 +100,14 @@ public class SubscriptionServices {
         }
         return subscriptionslist;
     }
+    public static void main(String[] args) {
+    SubscriptionServices subscriptionService = new SubscriptionServices();
+
+    Subscription subscription1 = new Subscription(1, "Gold", 1.2);
+    Subscription subscription2 = new Subscription(2, "Silver", 2.1);
+
+    subscriptionService.createSubscription(subscription1);
+    subscriptionService.createSubscription(subscription2);
+}
+    
 }
