@@ -5,14 +5,14 @@ import database.DbConnection;
 import model.Car;
 import java.util.ArrayList;
 
-public class CarService {
+public class CarService implements ICarService {
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
     private DbConnection dbConnection = new DbConnection();
 
     // Check if the car table exists, create it if not
-    public boolean checkTableCar() {
+    private boolean checkTableCar() {
         connection = dbConnection.connection;
         String query = "CREATE TABLE IF NOT EXISTS car (" +
                 "carId INT PRIMARY KEY, " +
@@ -132,4 +132,17 @@ public class CarService {
         }
         return carsList;
     }
+    public static void main(String[] args) {
+    CarService carService = new CarService();
+
+    
+    Car car1 = new Car(1, "Toyota Camry", "Toyota", new java.sql.Date(System.currentTimeMillis()),
+            "Silver", "ABC123", "Available", "car1.jpg", 50, 1);
+    Car car2 = new Car(2, "Honda Civic", "Honda", new java.sql.Date(System.currentTimeMillis()),
+            "Red", "XYZ789", "Available", "car2.jpg", 60, 2);
+
+    carService.createCar(car1);
+    carService.createCar(car2);
+}
+    
 }

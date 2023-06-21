@@ -6,11 +6,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class CarController {
-    private CarService carService;
-
-    public CarController() {
-        this.carService = new CarService();
-    }
+    private CarService carService = new CarService();
 
     public void createCar(int carId, String carName, String carBrand, Date carModelYear, String carColor,
             String plateNumber, String carStatus, String carImage, int rate, int ownerId) {
@@ -45,15 +41,12 @@ public class CarController {
         }
     }
 
-    public void listCars() {
+    public ArrayList<Car> listCars() {
         ArrayList<Car> carsList = carService.listCars();
         if (carsList.isEmpty()) {
-            System.out.println("No cars found.");
+            return null;
         } else {
-            System.out.println("List of cars:");
-            for (Car car : carsList) {
-                System.out.println(car.getCar_id() + " - " + car.getCar_name());
-            }
+            return carsList;
         }
     }
 }
