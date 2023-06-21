@@ -22,6 +22,7 @@ public class Owner {
     }
 
     public Owner() {
+        
     }
 
     public int getOwnerId() {

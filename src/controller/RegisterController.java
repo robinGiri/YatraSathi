@@ -1,14 +1,14 @@
 package controller;
 
-import model.Admin;
-import service.AdminService;
+import model.User;
+import service.UserService;
 
 public class RegisterController {
-    AdminService AdminService = new AdminService();
+    UserService UserService = new UserService();
 
-    public Boolean register(String username, String password, String email) {
-        Admin admin = new Admin(username, password, email);
-        return AdminService.register(admin);
+    public Boolean register( String username, String email, String password) {
+        User User = new User(username, password, email);
+        return UserService.createUser(User);
     }
 
 }
