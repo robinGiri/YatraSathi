@@ -139,7 +139,7 @@ public class CarService implements ICarService {
     Car car1 = new Car(1, "Toyota Camry", "Toyota", new java.sql.Date(System.currentTimeMillis()),
             "Silver", "ABC123", "Available", "car1.jpg", 50, 1);
     Car car2 = new Car(2, "Honda Civic", "Honda", new java.sql.Date(System.currentTimeMillis()),
-            "Red", "XYZ789", "Available", "car2.jpg", 60, 2);
+            "Red", "XYZ789", "Not Available", "car2.jpg", 60, 2);
 
     carService.createCar(car1);
     carService.createCar(car2);
