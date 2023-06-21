@@ -104,6 +104,9 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/view/outline_groups_black_24dp 1.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Users"/>
               </Properties>
               <Events>
@@ -112,6 +115,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/view/outline_person_add_black_24dp 1.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Clients"/>
               </Properties>
               <Events>
@@ -120,6 +126,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton3">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/view/outline_time_to_leave_black_24dp 1.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Car"/>
               </Properties>
               <Events>
@@ -128,6 +137,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton4">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/view/outline_payment_black_24dp 1.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Bill"/>
               </Properties>
               <Events>
@@ -136,6 +148,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton5">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/view/outline_car_rental_black_24dp 1.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Rent"/>
               </Properties>
               <Events>
@@ -144,6 +159,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton6">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/view/outline_home_black_24dp 1.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Home"/>
               </Properties>
               <Events>

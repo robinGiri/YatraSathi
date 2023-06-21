@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="1008" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="2027" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,7 +80,11 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/outline_groups_black_24dp 1.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Users"/>
+            <Property name="autoscrolls" type="boolean" value="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -88,6 +92,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/outline_person_add_black_24dp 1.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Clients"/>
           </Properties>
           <Events>
@@ -96,6 +103,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/outline_time_to_leave_black_24dp 1.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Car"/>
           </Properties>
           <Events>
@@ -104,6 +114,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/outline_payment_black_24dp 1.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Bill"/>
           </Properties>
           <Events>
@@ -112,6 +125,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton5">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/outline_car_rental_black_24dp 1.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Rent"/>
           </Properties>
           <Events>
@@ -120,6 +136,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton6">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/outline_home_black_24dp 1.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Home"/>
           </Properties>
           <Events>
