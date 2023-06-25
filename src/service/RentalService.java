@@ -150,7 +150,7 @@ public class RentalService implements IRentalService {
         RentalService rentalService = new RentalService();
        
         Rental rental1 = new Rental(1, new java.sql.Date(System.currentTimeMillis()), null, 200, 1, 1, 1, 1,
-                "InProgress", "Location1", "Location2", 1, 1);
+                "Completed", "Location1", "Location2", 1, 1);
         Rental rental2 = new Rental(2, new java.sql.Date(System.currentTimeMillis()), null, 150, 2, 2, 2, 2,
                 "Pending", "Location3", "Location4", 2, 2);
 

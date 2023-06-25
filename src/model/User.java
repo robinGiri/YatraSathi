@@ -1,26 +1,51 @@
 package model;
 
+import java.sql.Date;
+
 public class User {
     private int userId;
     private String userName;
     private String email;
     private String password;
+    private Date dateOfJoin;
     private String address;
     private String contact;
     private int subscriptionId;
     private int rentalId;
     private boolean isUser;
 
-    public User(int userId, String userName, String email, String password, String address1, String contact1, int subscriptionId, int rentalId, boolean isUser) {
+    public User(int userId, String userName, String email, String password,Date dateOfJoin, String address, String contact, int subscriptionId, int rentalId, boolean isUser) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.dateOfJoin = dateOfJoin;
         this.address = address;
         this.contact = contact;
         this.subscriptionId = subscriptionId;
         this.rentalId = rentalId;
         this.isUser = isUser;
+    }
+      public User( String userName, String email, String password,Date dateOfJoin, String address, String contact, int subscriptionId, int rentalId, boolean isUser) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.dateOfJoin = dateOfJoin;
+        this.address = address;
+        this.contact = contact;
+        this.subscriptionId = subscriptionId;
+        this.rentalId = rentalId;
+        this.isUser = isUser;
+    }
+
+   
+
+    public Date getDateOfJoin() {
+        return dateOfJoin;
+    }
+
+    public void setDateOfJoin(Date dateOfJoin) {
+        this.dateOfJoin = dateOfJoin;
     }
     public User(String name, String email, String password) {
         this.userName = name;
@@ -95,11 +120,19 @@ public class User {
         this.rentalId = rentalId;
     }
 
-    public boolean isUser() {
+    public boolean getisUser() {
         return isUser;
     }
 
-    public void setUser(boolean isUser) {
+    public void setisUser(boolean isUser) {
+        this.isUser = isUser;
+    }
+    
+    public boolean getdateOfJoin() {
+        return isUser;
+    }
+
+    public void setdateOfJoin(boolean isUser) {
         this.isUser = isUser;
     }
 }

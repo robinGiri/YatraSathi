@@ -2,6 +2,7 @@ package controller;
 
 import model.User;
 import service.UserService;
+import java.sql.Date;
 
 public class UsersController {
     private UserService userServices = new UserService();
@@ -14,10 +15,10 @@ public class UsersController {
     }
 
     // Update an existing user
-    public boolean updateUser(int userId, String userName, String email, String password, String address,
+    public boolean updateUser(int userId, String userName, String email, String password,Date dateOfJoin, String address,
             String contact,
             int subscriptionId, int rentalId, boolean isUser) {
-        User user = new User(userId, userName, address, contact, address, contact, subscriptionId, rentalId, isUser);
+        User user = new User(userId, userName, address, contact,dateOfJoin, address, contact, subscriptionId, rentalId, isUser);
         return userServices.updateUser(user);
     }
 
