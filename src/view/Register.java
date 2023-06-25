@@ -110,7 +110,7 @@ public class Register extends javax.swing.JFrame {
         getContentPane().add(jLabel10);
         jLabel10.setBounds(600, 350, 90, 20);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/background.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/media/background.png"))); // NOI18N
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(-30, -20, 1190, 830);

@@ -34,11 +34,12 @@ public class RentalController {
         return rentalService.deleteRental(rentalId);
     }
 
-    public void showRentalList() {
+    public ArrayList<Rental> showRentalList() {
         ArrayList<Rental> rentalsList = rentalService.listRentals();
-        for (Rental rental : rentalsList) {
-
-
+        if (rentalsList.isEmpty()) {
+            return null;
+        } else {
+            return rentalsList;
         }
     }
 }

@@ -141,7 +141,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2.setBounds(798, 0, 690, 763);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 3244, 1544, 769);
+        jPanel1.setBounds(0, 3244, 0, 0);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Password:");
@@ -181,10 +181,15 @@ public class Login extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(128, 115, 179));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton4.setText("Sign in");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4);
         jButton4.setBounds(980, 500, 270, 50);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/Desktop - 11.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/media/Desktop - 11.png"))); // NOI18N
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(0, 0, 1430, 1010);
@@ -201,15 +206,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        LoginController loginController = new LoginController();
-        if(loginController.login(jTextField1.getText(), jTextField2.getText())){
-            Home h = new Home();
-            h.setVisible(true);
-            this.dispose();
-            JOptionPane.showMessageDialog(null, "Login Successful");
-        }else{
-            JOptionPane.showMessageDialog(null, "Invalid Username or Password");
-        }
+     
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -223,6 +220,22 @@ public class Login extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+//        System.out.println(jTextField5.getText());        
+//        System.out.println(jTextField3.getText());
+        LoginController loginController = new LoginController();
+        
+
+        if(loginController.login(jTextField5.getText(), jTextField3.getText())){
+            Home h = new Home();
+            h.setVisible(true);
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Login Successful");
+        }else{
+            JOptionPane.showMessageDialog(null, "Invalid Username or Password");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         Register r = new Register();
