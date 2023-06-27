@@ -1,4 +1,9 @@
 package view;
+import view.layers.ClientViewLayer;
+import view.layers.CarViewLayer;
+import view.layers.RentViewLayer;
+
+
 
 public class Bill extends javax.swing.JFrame {
 
@@ -279,13 +284,13 @@ public class Bill extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Clients clients = new Clients();
+        ClientViewLayer clients = new ClientViewLayer();
         clients.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        CarView car = new CarView();
+        CarViewLayer car = new CarViewLayer();
         car.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -297,13 +302,13 @@ public class Bill extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Rent rent = new Rent();
+        RentViewLayer rent = new RentViewLayer();
         rent.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        Home home = new Home();
+        DashBoard home = new DashBoard();
         home.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
