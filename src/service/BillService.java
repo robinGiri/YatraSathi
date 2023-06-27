@@ -9,7 +9,7 @@ import java.util.List;
 import database.DbConnection;
 import model.Bill;
 
-public class BillService {
+public class BillService implements IBillService {
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
@@ -86,8 +86,8 @@ public class BillService {
     }
 
     // Get a list of all bills
-    public List<Bill> listBills() {
-        List<Bill> billList = new ArrayList<>();
+    public ArrayList<Bill> listBills() {
+        ArrayList<Bill> billList = new ArrayList<>();
         connection = dbConnection.connection;
         String query = "SELECT * FROM bill";
         try {
