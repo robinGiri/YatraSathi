@@ -14,7 +14,7 @@ public class Car {
     private int rate;
     private int owner_id;
 
-    public Car(int car_id, String car_name, String car_brand, Date car_model_year, String car_color, String plate_number, String car_status, String car_image, int rate, int owner_id) {
+    public Car(int car_id, String car_name, String car_brand, Date car_model_year, String car_color, String plate_number, String car_status, String car_image, int rate) {
         this.car_id = car_id;
         this.car_name = car_name;
         this.car_brand = car_brand;
@@ -23,6 +23,17 @@ public class Car {
         this.plate_number = plate_number;
         this.car_status = car_status;
         this.car_image = car_image;
+        this.rate = rate;
+        this.owner_id = owner_id;
+    }
+       public Car(int car_id, String car_name, String car_brand, Date car_model_year, String car_color, String plate_number, String car_status, int rate, int owner_id) {
+        this.car_id = car_id;
+        this.car_name = car_name;
+        this.car_brand = car_brand;
+        this.car_model_year = car_model_year;
+        this.car_color = car_color;
+        this.plate_number = plate_number;
+        this.car_status = car_status;
         this.rate = rate;
         this.owner_id = owner_id;
     }

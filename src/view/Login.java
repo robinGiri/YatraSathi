@@ -228,8 +228,8 @@ public class Login extends javax.swing.JFrame {
         
 
         if(loginController.login(jTextField5.getText(), jTextField3.getText())){
-            Home h = new Home();
-            h.setVisible(true);
+            DashBoard dashBoard = new DashBoard();
+            dashBoard.setVisible(true);
             this.dispose();
             JOptionPane.showMessageDialog(null, "Login Successful");
         }else{

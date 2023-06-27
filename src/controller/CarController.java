@@ -8,10 +8,9 @@ import java.util.ArrayList;
 public class CarController {
     private CarService carService = new CarService();
 
-    public void createCar(int carId, String carName, String carBrand, Date carModelYear, String carColor,
-            String plateNumber, String carStatus, String carImage, int rate, int ownerId) {
-        Car car = new Car(carId, carName, carBrand, carModelYear, carColor, plateNumber, carStatus,
-                carImage, rate, ownerId);
+    public void createCar(int carId, String carName, String carBrand, Date carModelYear, String carColor, String plateNumber, String carStatus, String rate,int ownerId ) {
+        Car car;
+        car = new Car(carId, carName, carBrand, carModelYear, carColor, plateNumber, carStatus, rate, ownerId);
         boolean success = carService.createCar(car);
         if (success) {
             System.out.println("Car created successfully.");
@@ -20,10 +19,8 @@ public class CarController {
         }
     }
 
-    public void updateCar(int carId, String carName, String carBrand, Date carModelYear, String carColor,
-            String plateNumber, String carStatus, String carImage, int rate, int ownerId) {
-        Car car = new Car(carId, carName, carBrand, carModelYear, carColor, plateNumber, carStatus,
-                carImage, rate, ownerId);
+    public void updateCar(int carId, String carName, String carBrand, Date carModelYear, String carColor, String plateNumber, String carStatus, String rate,int ownerId) {
+        Car car = new Car(carId, carName, carBrand, carModelYear, carColor, plateNumber, carStatus, rate, ownerId);
         boolean success = carService.updateCar(car);
         if (success) {
             System.out.println("Car updated successfully.");
@@ -39,6 +36,10 @@ public class CarController {
         } else {
             System.out.println("Failed to delete car.");
         }
+    }
+    public Car searchCar(int carId){
+        Car DetailCar = carService.getCarById(carId);
+        return DetailCar;
     }
 
     public ArrayList<Car> listCars() {

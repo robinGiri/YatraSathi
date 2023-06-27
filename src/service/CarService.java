@@ -63,6 +63,35 @@ public class CarService implements ICarService {
         }
         return false;
     }
+        public Car getCarById(int carId) {
+        connection = dbConnection.connection;
+        String query = "SELECT * FROM car WHERE carId = ?";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, carId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Car car = new Car();
+                car.setCar_id(resultSet.getInt("carId"));
+                car.setCar_name(resultSet.getString("carName"));
+                car.setCar_brand(resultSet.getString("carBrand"));
+                car.setCar_model_year(resultSet.getDate("carModelYear"));
+                car.setCar_color(resultSet.getString("carColor"));
+                car.setPlate_number(resultSet.getString("plateNumber"));
+                car.setCar_status(resultSet.getString("carStatus"));
+                car.setCar_image(resultSet.getString("carImage"));
+                car.setRate(resultSet.getInt("rate"));
+                car.setOwner_id(resultSet.getInt("ownerId"));
+
+                return car;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     public boolean updateCar(Car car) {
         connection = dbConnection.connection;
@@ -124,7 +153,7 @@ public class CarService implements ICarService {
                 int ownerId = resultSet.getInt("ownerId");
 
                 Car car = new Car(carId, carName, carBrand, carModelYear, carColor, plateNumber,
-                        carStatus, carImage, rate, ownerId);
+                        carStatus, carImage, rate);
                 carsList.add(car);
             }
         } catch (SQLException e) {
@@ -137,9 +166,9 @@ public class CarService implements ICarService {
 
     
     Car car1 = new Car(1, "Toyota Camry", "Toyota", new java.sql.Date(System.currentTimeMillis()),
-            "Silver", "ABC123", "Available", "car1.jpg", 50, 1);
+            "Silver", "ABC123", "Available", "car1.jpg", 50);
     Car car2 = new Car(2, "Honda Civic", "Honda", new java.sql.Date(System.currentTimeMillis()),
-            "Red", "XYZ789", "Not Available", "car2.jpg", 60, 2);
+            "Red", "XYZ789", "Not Available", "car2.jpg", 60);
 
     carService.createCar(car1);
     carService.createCar(car2);

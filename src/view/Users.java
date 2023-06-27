@@ -154,15 +154,15 @@ public class Users extends javax.swing.JFrame {
     }// GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-        Clients clients = new Clients();
-        clients.setVisible(true);
-        this.dispose();
+//        Clients clients = new Clients();
+//        clients.setVisible(true);
+//        this.dispose();
     }// GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
-        CarView car = new CarView();
-        car.setVisible(true);
-        this.dispose();
+//        CarView car = new CarView();
+//        car.setVisible(true);
+//        this.dispose();
     }// GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
@@ -172,15 +172,15 @@ public class Users extends javax.swing.JFrame {
     }// GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
-        Rent rent = new Rent();
-        rent.setVisible(true);
-        this.dispose();
+//        Rent rent = new Rent();
+//        rent.setVisible(true);
+//        this.dispose();
     }// GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed
-        Home home = new Home();
-        home.setVisible(true);
-        this.dispose();
+//        Home home = new Home();
+//        home.setVisible(true);
+//        this.dispose();
     }// GEN-LAST:event_jButton6ActionPerformed
 
     /**
