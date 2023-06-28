@@ -1,12 +1,25 @@
 package view.layers;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import controller.CarController;
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Date;
+import java.util.regex.PatternSyntaxException;
+import javax.swing.JFileChooser;
+import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.Car;
 
 /**
@@ -14,10 +27,6 @@ import model.Car;
  * @author ksand
  */
 public class CarViewLayer extends javax.swing.JPanel {
-    
-    /**
-     * Creates new form CarViewLayer
-     */
     public CarViewLayer() {
         initComponents();
         ADEPanel.setVisible(false);
@@ -63,6 +72,55 @@ public class CarViewLayer extends javax.swing.JPanel {
         }
     });
     }
+    private void filterTable(String regex) {
+    try {
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable1.getModel());
+        sorter.setRowFilter(RowFilter.regexFilter(regex));
+        jTable1.setRowSorter(sorter);
+    } catch (PatternSyntaxException ex) {
+        // Handle invalid regex pattern
+        System.err.println("Invalid regex pattern: " + ex.getMessage());
+    }
+}
+    private void generatePDF(String convertedString) {
+    try {
+        // Create a new PDF document
+        Document document = new Document(PageSize.A4);
+
+        // Set the output file path
+        PdfWriter.getInstance(document, new FileOutputStream(convertedString));
+
+        // Open the document
+        document.open();
+
+        // Create a table with the same number of columns as the Swing table
+        PdfPTable pdfTable = new PdfPTable(jTable1.getColumnCount());
+
+        // Add table headers
+        for (int i = 0; i < jTable1.getColumnCount(); i++) {
+            pdfTable.addCell(jTable1.getColumnName(i));
+        }
+
+        // Add table data
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            for (int j = 0; j < jTable1.getColumnCount(); j++) {
+                pdfTable.addCell(jTable1.getValueAt(i, j).toString());
+            }
+        }
+
+        // Add the table to the document
+        document.add(pdfTable);
+
+        // Close the document
+        document.close();
+
+        System.out.println("PDF created successfully.");
+
+    } catch (DocumentException | FileNotFoundException e) {
+        e.printStackTrace();
+    }
+}
+
        private void loadCar() {
         CarController carController = new CarController();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -77,21 +135,6 @@ public class CarViewLayer extends javax.swing.JPanel {
             };
             model.addRow(row);
         }
-
-    }
-              private void loadCar(int id) {
-        CarController carController = new CarController();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); // Clear existing data
-        Car car = carController.searchCar(id);
-
-            Object[] row = {
-                    car.getCar_id(),
-                    car.getCar_name(),
-                    car.getCar_status(),
-                    car.getCar_brand()
-            };
-            model.addRow(row);
 
     }
     @SuppressWarnings("unchecked")
@@ -118,6 +161,7 @@ public class CarViewLayer extends javax.swing.JPanel {
         searchField = new javax.swing.JTextField();
         SearchButton = new javax.swing.JButton();
         loadAllCar = new javax.swing.JButton();
+        printPDF = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -333,6 +377,13 @@ public class CarViewLayer extends javax.swing.JPanel {
                     .addContainerGap(121, Short.MAX_VALUE)))
         );
 
+        printPDF.setText("Print");
+        printPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printPDFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -340,9 +391,15 @@ public class CarViewLayer extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +407,9 @@ public class CarViewLayer extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(231, 231, 231)
+                .addGap(84, 84, 84)
+                .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94)
                 .addComponent(jLayeredPane1)
                 .addContainerGap())
         );
@@ -384,7 +443,7 @@ public class CarViewLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_owneridActionPerformed
 
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
-        loadCar(Integer.parseInt(searchField.getText()));
+        filterTable(searchField.getText());
     }//GEN-LAST:event_SearchButtonActionPerformed
 
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
@@ -394,6 +453,24 @@ public class CarViewLayer extends javax.swing.JPanel {
     private void loadAllCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadAllCarActionPerformed
         loadCar();
     }//GEN-LAST:event_loadAllCarActionPerformed
+
+    private void printPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPDFActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        Component frame = null;
+
+        // Show the file chooser dialog
+        int result = fileChooser.showOpenDialog(frame);
+            
+            // Handle the selected folder
+            if (result == JFileChooser.APPROVE_OPTION) {
+                String selectedFolder = fileChooser.getSelectedFile().getPath();
+                String convertedString = selectedFolder.replace("\\", "\\\\");
+                generatePDF(convertedString+"\\\\carTable.pdf");
+                
+            }
+       
+    }//GEN-LAST:event_printPDFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -413,6 +490,7 @@ public class CarViewLayer extends javax.swing.JPanel {
     private javax.swing.JButton loadAllCar;
     private javax.swing.JTextField number;
     private javax.swing.JTextField ownerid;
+    private javax.swing.JButton printPDF;
     private javax.swing.JTextField rate;
     private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchPanel;
