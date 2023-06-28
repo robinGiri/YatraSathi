@@ -30,7 +30,7 @@ public class DbConnection {
 
             String username = "root";
 
-            String password = "Achinty@1";
+            String password = "admin";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
 
