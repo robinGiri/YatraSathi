@@ -1,17 +1,12 @@
 package view.layers;
 
 import controller.CarController;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
-import java.util.regex.PatternSyntaxException;
-import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import model.Car;
 
 /**
@@ -20,6 +15,9 @@ import model.Car;
  */
 public class CarViewLayer extends javax.swing.JPanel {
     
+    /**
+     * Creates new form CarViewLayer
+     */
     public CarViewLayer() {
         initComponents();
         ADEPanel.setVisible(false);
@@ -68,7 +66,7 @@ public class CarViewLayer extends javax.swing.JPanel {
        private void loadCar() {
         CarController carController = new CarController();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); 
+        model.setRowCount(0); // Clear existing data
 
         for (Car car : carController.listCars()) {
             Object[] row = {
@@ -81,15 +79,21 @@ public class CarViewLayer extends javax.swing.JPanel {
         }
 
     }
-    private void filterTable(String regex) {
-    try {
-        TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable1.getModel());
-        sorter.setRowFilter(RowFilter.regexFilter(regex));
-        jTable1.setRowSorter(sorter);
-    } catch (PatternSyntaxException ex) {
-        System.err.println("Invalid regex pattern: " + ex.getMessage());
+              private void loadCar(int id) {
+        CarController carController = new CarController();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Clear existing data
+        Car car = carController.searchCar(id);
+
+            Object[] row = {
+                    car.getCar_id(),
+                    car.getCar_name(),
+                    car.getCar_status(),
+                    car.getCar_brand()
+            };
+            model.addRow(row);
+
     }
-}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -252,11 +256,6 @@ public class CarViewLayer extends javax.swing.JPanel {
                 searchFieldActionPerformed(evt);
             }
         });
-        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                searchFieldKeyPressed(evt);
-            }
-        });
 
         SearchButton.setText("Search");
         SearchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -384,9 +383,8 @@ public class CarViewLayer extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_owneridActionPerformed
 
-    private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerforme
-//        loadCar(Integer.parseInt(searchField.getText()));
-        filterTable(searchField.getText());
+    private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
+        loadCar(Integer.parseInt(searchField.getText()));
     }//GEN-LAST:event_SearchButtonActionPerformed
 
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
@@ -396,10 +394,6 @@ public class CarViewLayer extends javax.swing.JPanel {
     private void loadAllCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadAllCarActionPerformed
         loadCar();
     }//GEN-LAST:event_loadAllCarActionPerformed
-
-    private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
-        filterTable(searchField.getText());
-    }//GEN-LAST:event_searchFieldKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
