@@ -384,7 +384,7 @@ public class CarViewLayer extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_owneridActionPerformed
 
-    private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
+    private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerforme
 //        loadCar(Integer.parseInt(searchField.getText()));
         filterTable(searchField.getText());
     }//GEN-LAST:event_SearchButtonActionPerformed
