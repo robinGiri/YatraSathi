@@ -10,9 +10,26 @@ public class User {
     private Date dateOfJoin;
     private String address;
     private String contact;
+    private String img;
     private int subscriptionId;
     private int rentalId;
     private boolean isUser;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public boolean isIsUser() {
+        return isUser;
+    }
+
+    public void setIsUser(boolean isUser) {
+        this.isUser = isUser;
+    }
 
     public User(int userId, String userName, String email, String password,Date dateOfJoin, String address, String contact, int subscriptionId, int rentalId, boolean isUser) {
         this.userId = userId;

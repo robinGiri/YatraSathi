@@ -6,11 +6,11 @@ import model.User;
 import java.util.*;
 import java.sql.Date;
 
-public class UserService {
+public class UserService implements  IUserService{
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
-    private DbConnection dbConnection = new DbConnection();
+    private final DbConnection dbConnection = new DbConnection();
 
     // It checks the table and creates a new table if it does not exist
     public boolean checkTableUser() {
@@ -38,6 +38,7 @@ public class UserService {
     }
 
     // Create user
+    @Override
     public boolean createUser(User user) {
         checkTableUser();
         connection = dbConnection.connection;
@@ -63,7 +64,7 @@ public class UserService {
         }
         return false;
     }
-
+    @Override
     public boolean updateUser(User user) {
         connection = dbConnection.connection;
         String query = "UPDATE user SET userName = ?,email = ?, password = ?,dateOfJoin = ?, address = ?, contact = ?, " +
@@ -89,7 +90,7 @@ public class UserService {
         }
         return false;
     }
-
+    @Override
     public boolean deleteUser(User user) {
         connection = dbConnection.connection;
         String query = "DELETE FROM user WHERE userId = ?";
@@ -105,7 +106,7 @@ public class UserService {
         }
         return false;
     }
-    
+    @Override
     public ArrayList<User> listUsers() {
         ArrayList<User> userList = new ArrayList<User>();
         connection = dbConnection.connection;
@@ -133,7 +134,33 @@ public class UserService {
         }
         return userList;
     }
-    
+    @Override
+    public User selectUserID(int userId) {
+        connection = dbConnection.connection;
+        String query = "SELECT * FROM user WHERE userId = ?";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getInt("userId"));
+                user.setUserName(resultSet.getString("userName"));
+                user.setEmail(resultSet.getString("email"));
+                user.setDateOfJoin(resultSet.getDate("dateOfJoin"));
+                user.setContact(resultSet.getString("contact"));
+                user.setisUser(resultSet.getBoolean("isUser"));
+                user.setAddress(resultSet.getString("address"));
+                return user;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+        
+    }
     public static void main(String[] args) {
         UserService userService = new UserService();
 
@@ -168,5 +195,8 @@ public class UserService {
         userService.createUser(user13);
         userService.createUser(user14);
         userService.createUser(user15);
-    }
+          
+}
+
+    
 }

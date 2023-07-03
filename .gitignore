@@ -1,4 +1,5 @@
 /build/
 /nbproject/
 .DS_Store
+DbConnection.java
 
