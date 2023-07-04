@@ -76,7 +76,6 @@ public class CarViewLayer extends javax.swing.JPanel {
         }
     });
     }
-    
     //filter the table from the search bar
     private void filterTable(String regex) {
     try {
@@ -87,8 +86,7 @@ public class CarViewLayer extends javax.swing.JPanel {
         // Handle invalid regex pattern
         System.err.println("Invalid regex pattern: " + ex.getMessage());
     }
-}
-    
+}   
 // print the pdf formated table 
     private void generatePDF(String convertedString) {
     try {
