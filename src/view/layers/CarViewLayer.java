@@ -32,6 +32,8 @@ public class CarViewLayer extends javax.swing.JPanel {
         ADEPanel.setVisible(false);
         searchPanel.setVisible(true);
         loadCar();
+        
+        // This line will see if the user is touching the list of table and load the data of the selected row in the fields;
           jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
@@ -59,6 +61,8 @@ public class CarViewLayer extends javax.swing.JPanel {
                 }
             }
         });
+          
+        //to deselect if it is not clicked in the list
            jScrollPane1.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -72,6 +76,7 @@ public class CarViewLayer extends javax.swing.JPanel {
         }
     });
     }
+    //filter the table from the search bar
     private void filterTable(String regex) {
     try {
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable1.getModel());
@@ -81,7 +86,8 @@ public class CarViewLayer extends javax.swing.JPanel {
         // Handle invalid regex pattern
         System.err.println("Invalid regex pattern: " + ex.getMessage());
     }
-}
+}   
+// print the pdf formated table 
     private void generatePDF(String convertedString) {
     try {
         // Create a new PDF document
@@ -120,7 +126,7 @@ public class CarViewLayer extends javax.swing.JPanel {
         e.printStackTrace();
     }
 }
-
+//Load the car in the table
        private void loadCar() {
         CarController carController = new CarController();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
