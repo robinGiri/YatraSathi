@@ -3,6 +3,7 @@ package view;
 import javax.swing.JOptionPane;
 
 import controller.RegisterController;
+import javax.swing.JFrame;
 
 public class Register extends javax.swing.JFrame {
 
@@ -11,6 +12,7 @@ public class Register extends javax.swing.JFrame {
      */
     public Register() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     @SuppressWarnings("unchecked")
