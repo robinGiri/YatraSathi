@@ -20,7 +20,6 @@ public class BillService implements IBillService {
         connection = dbConnection.connection;
         String query = "CREATE TABLE IF NOT EXISTS bill (" +
                 "rental_id INT, " +
-                "admin_id INT, " +
                 "payment_id INT PRIMARY KEY AUTO_INCREMENT, " +
                 "payment_date DATE, " +
                 "payment_amount DECIMAL(10,2))";
@@ -40,7 +39,7 @@ public class BillService implements IBillService {
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, bill.getRentalId());
-            preparedStatement.setInt(2, bill.getAdminId());
+            preparedStatement.setInt(2, bill.getPaymentId());
             preparedStatement.setDate(3, new java.sql.Date(bill.getPaymentDate().getTime()));
             preparedStatement.setDouble(4, bill.getPaymentAmount());
             int status = preparedStatement.executeUpdate();
@@ -50,18 +49,40 @@ public class BillService implements IBillService {
         }
         return false;
     }
+    public Bill getBillById(int payment_Id) {
+    connection = dbConnection.connection;
+    String query = "SELECT * FROM bill WHERE payment_id = ?";
+    try {
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, payment_Id);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            Bill bill = new Bill();
+            bill.setRentalId(resultSet.getInt("rental_id"));
+            bill.setPaymentId(resultSet.getInt("payment_id"));
+            bill.setPaymentDate(resultSet.getDate("payment_date"));
+            bill.setPaymentAmount(resultSet.getDouble("payment_amount"));
+
+            return bill;
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return null;
+}
 
     // Update an existing bill
     public boolean updateBill(Bill bill) {
         connection = dbConnection.connection;
-        String query = "UPDATE bill SET rental_id = ?, admin_id = ?, payment_date = ?, payment_amount = ? WHERE payment_id = ?";
+        String query = "UPDATE bill SET rental_id = ?, payment_date = ?, payment_amount = ? WHERE payment_id = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, bill.getRentalId());
-            preparedStatement.setInt(2, bill.getAdminId());
-            preparedStatement.setDate(3, new java.sql.Date(bill.getPaymentDate().getTime()));
-            preparedStatement.setDouble(4, bill.getPaymentAmount());
-            preparedStatement.setInt(5, bill.getPaymentId());
+            preparedStatement.setDate(2, new java.sql.Date(bill.getPaymentDate().getTime()));
+            preparedStatement.setDouble(3, bill.getPaymentAmount());
+            preparedStatement.setInt(4, bill.getPaymentId());
             int status = preparedStatement.executeUpdate();
             return status > 0;
         } catch (SQLException e) {
@@ -95,11 +116,10 @@ public class BillService implements IBillService {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int rentalId = resultSet.getInt("rental_id");
-                int adminId = resultSet.getInt("admin_id");
                 int paymentId = resultSet.getInt("payment_id");
                 Date paymentDate = resultSet.getDate("payment_date");
                 double paymentAmount = resultSet.getDouble("payment_amount");
-                Bill bill = new Bill(rentalId, adminId, paymentId, paymentDate, paymentAmount);
+                Bill bill = new Bill(rentalId, paymentId, paymentDate, paymentAmount);
                 billList.add(bill);
             }
         } catch (SQLException e) {
@@ -112,15 +132,14 @@ public class BillService implements IBillService {
         BillService billService = new BillService();
 
         // Example usage
-        Bill bill1 = new Bill(1, 1, 1, new Date(), 100.0);
-        Bill bill2 = new Bill(2, 1, 2, new Date(), 200.0);
+        Bill bill1 = new Bill(1, 1, new Date(), 100.0);
+        Bill bill2 = new Bill(2, 2, new Date(), 200.0);
         billService.createBill(bill1);
         billService.createBill(bill2);
 
         List<Bill> bills = billService.listBills();
         for (Bill bill : bills) {
             System.out.println("Rental ID: " + bill.getRentalId());
-            System.out.println("Admin ID: " + bill.getAdminId());
             System.out.println("Payment ID: " + bill.getPaymentId());
             System.out.println("Payment Date: " + bill.getPaymentDate());
             System.out.println("Payment Amount: " + bill.getPaymentAmount());

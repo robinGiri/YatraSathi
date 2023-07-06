@@ -5,7 +5,6 @@ import java.sql.Date;
 public class Rental {
     private int rental_id;
     private Date rental_datetime;
-    private Date return_datetime;
     private int total_price;
     private int owner_id;
     private int car_id;
@@ -17,10 +16,9 @@ public class Rental {
     private int driver_id;
     private int payment_id;
 
-    public Rental(int rental_id, Date rental_datetime, Date return_datetime, int total_price, int owner_id, int car_id, int category_id, int customer_id, String rental_status, String pickup, String dropoff, int driver_id, int payment_id) {
+    public Rental(int rental_id, Date rental_datetime, int total_price, int owner_id, int car_id, int category_id, int customer_id, String rental_status, String pickup, String dropoff, int driver_id, int payment_id) {
         this.rental_id = rental_id;
         this.rental_datetime = rental_datetime;
-        this.return_datetime = return_datetime;
         this.total_price = total_price;
         this.owner_id = owner_id;
         this.car_id = car_id;
@@ -51,14 +49,6 @@ public class Rental {
 
     public void setRental_datetime(Date rental_datetime) {
         this.rental_datetime = rental_datetime;
-    }
-
-    public Date getReturn_datetime() {
-        return return_datetime;
-    }
-
-    public void setReturn_datetime(Date return_datetime) {
-        this.return_datetime = return_datetime;
     }
 
     public int getTotal_price() {
