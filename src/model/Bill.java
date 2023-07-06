@@ -14,6 +14,12 @@ public class Bill {
         this.paymentId = paymentId;
         this.paymentDate = paymentDate;
         this.paymentAmount = paymentAmount;
+    } 
+        public Bill(int rentalId,int paymentId, Date paymentDate, double paymentAmount) {
+            this.rentalId = rentalId;
+            this.paymentId = paymentId;
+            this.paymentDate = paymentDate;
+            this.paymentAmount = paymentAmount;
     }
     
     public Bill() {

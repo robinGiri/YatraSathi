@@ -4,6 +4,7 @@ import java.sql.*;
 import database.DbConnection;
 import model.Rental;
 import java.util.ArrayList;
+import model.Car;
 
 public class RentalService implements IRentalService {
     private PreparedStatement preparedStatement;
@@ -17,7 +18,6 @@ public class RentalService implements IRentalService {
         String query = "CREATE TABLE IF NOT EXISTS rental (" +
                 "rentalId INT PRIMARY KEY, " +
                 "rentalDateTime DATE, " +
-                "returnDateTime DATE, " +
                 "totalPrice INT, " +
                 "ownerId INT, " +
                 "carId INT, " +
@@ -43,43 +43,13 @@ public class RentalService implements IRentalService {
     public boolean createRental(Rental rental) {
         checkTableRental();
         connection = dbConnection.connection;
-        String query = "INSERT INTO rental(rentalId, rentalDateTime, returnDateTime, totalPrice, ownerId, carId, " +
+        String query = "INSERT INTO rental(rentalId, rentalDateTime, totalPrice, ownerId, carId, " +
                 "categoryId, customerId, rentalStatus, pickup, dropOff, driverId, paymentId) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, rental.getRental_id());
             preparedStatement.setDate(2, rental.getRental_datetime());
-            preparedStatement.setDate(3, rental.getReturn_datetime());
-            preparedStatement.setInt(4, rental.getTotal_price());
-            preparedStatement.setInt(5, rental.getOwner_id());
-            preparedStatement.setInt(6, rental.getCar_id());
-            preparedStatement.setInt(7, rental.getCategory_id());
-            preparedStatement.setInt(8, rental.getCustomer_id());
-            preparedStatement.setString(9, rental.getRental_status());
-            preparedStatement.setString(10, rental.getPickup());
-            preparedStatement.setString(11, rental.getDropoff());
-            preparedStatement.setInt(12, rental.getDriver_id());
-            preparedStatement.setInt(13, rental.getPayment_id());
-
-            int status = preparedStatement.executeUpdate();
-            return (status > 0);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
-    }
-
-    public boolean updateRental(Rental rental) {
-        connection = dbConnection.connection;
-        String query = "UPDATE rental SET rentalDateTime = ?, returnDateTime = ?, totalPrice = ?, " +
-                "ownerId = ?, carId = ?, categoryId = ?, customerId = ?, rentalStatus = ?, pickup = ?, " +
-                "dropOff = ?, driverId = ?, paymentId = ? WHERE rentalId = ?";
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setDate(1, rental.getRental_datetime());
-            preparedStatement.setDate(2, rental.getReturn_datetime());
             preparedStatement.setInt(3, rental.getTotal_price());
             preparedStatement.setInt(4, rental.getOwner_id());
             preparedStatement.setInt(5, rental.getCar_id());
@@ -90,7 +60,68 @@ public class RentalService implements IRentalService {
             preparedStatement.setString(10, rental.getDropoff());
             preparedStatement.setInt(11, rental.getDriver_id());
             preparedStatement.setInt(12, rental.getPayment_id());
-            preparedStatement.setInt(13, rental.getRental_id());
+
+            int status = preparedStatement.executeUpdate();
+            return (status > 0);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    public Rental getRentalById(int rentalId) {
+        connection = dbConnection.connection;
+        String query = "SELECT * FROM rental WHERE rentalId = ?";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, rentalId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Rental rental = new Rental();
+                rental.setRental_id(resultSet.getInt("rentalId"));
+                rental.setRental_datetime(resultSet.getDate("rentalDateTime"));
+                rental.setTotal_price(resultSet.getInt("totalPrice"));
+                rental.setOwner_id(resultSet.getInt("ownerId"));
+                rental.setCar_id(resultSet.getInt("carId"));
+                rental.setCategory_id(resultSet.getInt("categoryId"));
+                rental.setCustomer_id(resultSet.getInt("customerId"));
+                rental.setRental_status(resultSet.getString("rentalStatus"));
+                rental.setPickup(resultSet.getString("pickup"));
+                rental.setDropoff(resultSet.getString("dropoff"));
+                rental.setDriver_id(resultSet.getInt("driverId"));
+                rental.setPayment_id(resultSet.getInt("paymentId"));
+
+                return rental;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+            
+
+    public boolean updateRental(Rental rental) {
+        connection = dbConnection.connection;
+        String query = "UPDATE rental SET rentalDateTime = ?, totalPrice = ?, " +
+                "ownerId = ?, carId = ?, categoryId = ?, customerId = ?, rentalStatus = ?, pickup = ?, " +
+                "dropOff = ?, driverId = ?, paymentId = ? WHERE rentalId = ?";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setDate(1, rental.getRental_datetime());
+            preparedStatement.setInt(2, rental.getTotal_price());
+            preparedStatement.setInt(3, rental.getOwner_id());
+            preparedStatement.setInt(4, rental.getCar_id());
+            preparedStatement.setInt(5, rental.getCategory_id());
+            preparedStatement.setInt(6, rental.getCustomer_id());
+            preparedStatement.setString(7, rental.getRental_status());
+            preparedStatement.setString(8, rental.getPickup());
+            preparedStatement.setString(9, rental.getDropoff());
+            preparedStatement.setInt(10, rental.getDriver_id());
+            preparedStatement.setInt(11, rental.getPayment_id());
+            preparedStatement.setInt(12, rental.getRental_id());
 
             int status = preparedStatement.executeUpdate();
             return (status > 0);
@@ -124,7 +155,6 @@ public class RentalService implements IRentalService {
             while (resultSet.next()) {
                 int rentalId = resultSet.getInt("rentalId");
                 Date rentalDateTime = resultSet.getDate("rentalDateTime");
-                Date returnDateTime = resultSet.getDate("returnDateTime");
                 int totalPrice = resultSet.getInt("totalPrice");
                 int ownerId = resultSet.getInt("ownerId");
                 int carId = resultSet.getInt("carId");
@@ -136,7 +166,7 @@ public class RentalService implements IRentalService {
                 int driverId = resultSet.getInt("driverId");
                 int paymentId = resultSet.getInt("paymentId");
 
-                Rental rental = new Rental(rentalId, rentalDateTime, returnDateTime, totalPrice, ownerId, carId,
+                Rental rental = new Rental(rentalId, rentalDateTime, totalPrice, ownerId, carId,
                         categoryId, customerId, rentalStatus, pickup, dropoff, driverId, paymentId);
                 rentalsList.add(rental);
             }
@@ -149,9 +179,9 @@ public class RentalService implements IRentalService {
         public static void main(String[] args) {
         RentalService rentalService = new RentalService();
        
-        Rental rental1 = new Rental(1, new java.sql.Date(System.currentTimeMillis()), null, 200, 1, 1, 1, 1,
+        Rental rental1 = new Rental(1, new java.sql.Date(System.currentTimeMillis()), 200, 1, 1, 1, 1,
                 "Completed", "Location1", "Location2", 1, 1);
-        Rental rental2 = new Rental(2, new java.sql.Date(System.currentTimeMillis()), null, 150, 2, 2, 2, 2,
+        Rental rental2 = new Rental(2, new java.sql.Date(System.currentTimeMillis()), 150, 2, 2, 2, 2,
                 "Pending", "Location3", "Location4", 2, 2);
 
         

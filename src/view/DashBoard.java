@@ -8,6 +8,7 @@ public class DashBoard extends javax.swing.JFrame {
         carViewLayer1.setVisible(false);
         rentViewLayer1.setVisible(false);
         clientViewLayer1.setVisible(false);
+        billViewLayer1.setVisible(false);
     }
     @SuppressWarnings("unchecked")
 
@@ -26,6 +27,7 @@ public class DashBoard extends javax.swing.JFrame {
         rentViewLayer1 = new view.layers.RentViewLayer();
         clientViewLayer1 = new view.layers.ClientViewLayer();
         dashBoardLayer1 = new view.layers.DashBoardLayer();
+        billViewLayer1 = new view.layers.BillViewLayer();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -184,6 +186,7 @@ public class DashBoard extends javax.swing.JFrame {
         carViewLayer1.setVisible(false);
         rentViewLayer1.setVisible(false);
         clientViewLayer1.setVisible(false);
+        billViewLayer1.setVisible(true);
     }//GEN-LAST:event_BillActionPerformed
 
     private void CarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarsActionPerformed
@@ -191,6 +194,7 @@ public class DashBoard extends javax.swing.JFrame {
         carViewLayer1.setVisible(true);
         rentViewLayer1.setVisible(false);
         clientViewLayer1.setVisible(false);
+        billViewLayer1.setVisible(false);
     }//GEN-LAST:event_CarsActionPerformed
 
     private void DashBoardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DashBoardActionPerformed
@@ -198,6 +202,7 @@ public class DashBoard extends javax.swing.JFrame {
         carViewLayer1.setVisible(false);
         rentViewLayer1.setVisible(false);
         clientViewLayer1.setVisible(false);
+        billViewLayer1.setVisible(false);
     }//GEN-LAST:event_DashBoardActionPerformed
 
     private void ClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientsActionPerformed
@@ -205,6 +210,7 @@ public class DashBoard extends javax.swing.JFrame {
         carViewLayer1.setVisible(false);
         rentViewLayer1.setVisible(false);
         clientViewLayer1.setVisible(true);
+        billViewLayer1.setVisible(false);
     }//GEN-LAST:event_ClientsActionPerformed
 
     private void RentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RentActionPerformed
@@ -212,6 +218,7 @@ public class DashBoard extends javax.swing.JFrame {
         carViewLayer1.setVisible(false);
         rentViewLayer1.setVisible(true);
         clientViewLayer1.setVisible(false);
+        billViewLayer1.setVisible(false);
     }//GEN-LAST:event_RentActionPerformed
 
     /**
@@ -232,6 +239,7 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton Clients;
     private javax.swing.JButton DashBoard;
     private javax.swing.JButton Rent;
+    private view.layers.BillViewLayer billViewLayer1;
     private view.layers.CarViewLayer carViewLayer1;
     private view.layers.ClientViewLayer clientViewLayer1;
     private view.layers.DashBoardLayer dashBoardLayer1;

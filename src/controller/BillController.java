@@ -1,4 +1,5 @@
 package controller;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import service.BillService;
@@ -8,14 +9,14 @@ public class BillController {
     private BillService billService = new BillService();
 
     // Create a new bill
-    public boolean createBill(int rentalId, int adminId, Date paymentDate, double paymentAmount) {
-        Bill bill = new Bill(rentalId, adminId, 0, paymentDate, paymentAmount);
+    public boolean createBill(int rentalId, int paymentId, Date paymentDate, double paymentAmount) {
+        Bill bill = new Bill(rentalId, paymentId, paymentDate, paymentAmount);
         return billService.createBill(bill);
     }
 
     // Update an existing bill
-    public boolean updateBill(int rentalId, int adminId, int paymentId, Date paymentDate, double paymentAmount) {
-        Bill bill = new Bill(rentalId, adminId, paymentId, paymentDate, paymentAmount);
+    public boolean updateBill(int rentalId, int paymentId, Date paymentDate, double paymentAmount) {
+        Bill bill = new Bill(rentalId, paymentId, paymentDate, paymentAmount);
         return billService.updateBill(bill);
     }
 
@@ -24,6 +25,10 @@ public class BillController {
         Bill bill = new Bill();
         bill.setPaymentId(paymentId);
         return billService.deleteBill(bill);
+    }
+        public Bill searchBill(int PaymentId){
+        Bill DetailBill = billService.getBillById(PaymentId);
+        return DetailBill;
     }
 
     // Show a list of bills
@@ -49,4 +54,16 @@ public class BillController {
 
         billController.showBillList();
     }
+    public ArrayList<Bill> listBills() {
+        ArrayList<Bill> BillsList = billService.listBills();
+        if (BillsList.isEmpty()) {
+            return null;
+        } else {
+            return BillsList;
+        }
+    }
+
+
 }
+
+
