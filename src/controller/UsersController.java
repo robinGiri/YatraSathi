@@ -9,22 +9,22 @@ public class UsersController {
     private UserService userServices = new UserService();
 
     // Create a new user
-    public boolean createUser(String username, String email, String password) {
-        User user = new User(username, email, password);
+    public boolean createUser(String username, String email, String password, boolean isAdmin) {
+        User user = new User(username, email, password,isAdmin);
         return userServices.createUser(user);
     }
     
     //Create a new user
-     public boolean createUser(int userId, String userName, String email, String password,Date dateOfJoin, String address, String contact, int subscriptionId, int rentalId, boolean isUser) {
-        User user = new User(userId, userName, email, password, dateOfJoin, address, contact, subscriptionId, rentalId, isUser);
+     public boolean createUser(int userId, String userName, String email, String password,Date dateOfJoin, String address, String contact, String subscription, boolean isUser) {
+        User user = new User(userName, email, password, dateOfJoin, address, contact, subscription, isUser);
         return userServices.createUser(user);
     }
 
     // Update an existing user
     public boolean updateUser(int userId, String userName, String email, String password,Date dateOfJoin, String address,
             String contact,
-            int subscriptionId, int rentalId, boolean isUser) {
-        User user = new User(userId, userName, address, contact,dateOfJoin, address, contact, subscriptionId, rentalId, isUser);
+            String subscription,boolean isUser) {
+        User user = new User(userName, address, contact,dateOfJoin, address, contact, subscription, isUser);
         return userServices.updateUser(user);
     }
 

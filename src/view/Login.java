@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JOptionPane;
 import controller.LoginController;
+import javax.swing.JFrame;
 
 public class Login extends javax.swing.JFrame {
 
@@ -10,6 +11,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     @SuppressWarnings("unchecked")
