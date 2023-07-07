@@ -35,6 +35,8 @@
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="searchPanel" min="-2" max="-2" attributes="0"/>
@@ -152,6 +154,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printPDFActionPerformed"/>
       </Events>
     </Component>
+
     <Container class="javax.swing.JPanel" name="ADEPanel">
 
       <Layout>
@@ -180,6 +183,33 @@
                                       <Component id="pickup" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="returnDate" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="carId" min="-2" max="-2" attributes="0"/>
+                              <Component id="rentalId" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="customerId" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="paymentId" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="carId" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="totalPrice" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="ownerId" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="rentalDate" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="dropoff" min="-2" max="-2" attributes="0"/>
+                                              <Component id="driverId" min="-2" max="-2" attributes="0"/>
+                                              <Component id="pickup" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="rentalStatus" min="-2" max="-2" attributes="0"/>
+                                              <Component id="categoryId" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -303,6 +333,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="searchField" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="searchButton" alignment="3" min="-2" max="-2" attributes="0"/>

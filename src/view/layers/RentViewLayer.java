@@ -171,6 +171,7 @@ public class RentViewLayer extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         printPDF = new javax.swing.JButton();
+
         ADEPanel = new javax.swing.JPanel();
         addRent = new javax.swing.JButton();
         deleteRent = new javax.swing.JButton();
@@ -223,6 +224,7 @@ public class RentViewLayer extends javax.swing.JPanel {
             }
         });
 
+
         addRent.setText("Add");
         addRent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,6 +265,13 @@ public class RentViewLayer extends javax.swing.JPanel {
 
         dropoff.setText("drop off");
 
+        printPDF.setText("Print");
+        printPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printPDFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ADEPanelLayout = new javax.swing.GroupLayout(ADEPanel);
         ADEPanel.setLayout(ADEPanelLayout);
         ADEPanelLayout.setHorizontalGroup(
@@ -290,6 +299,7 @@ public class RentViewLayer extends javax.swing.JPanel {
                                     .addComponent(carId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(18, 18, 18)
                 .addComponent(editRent)
+
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ADEPanelLayout.setVerticalGroup(
