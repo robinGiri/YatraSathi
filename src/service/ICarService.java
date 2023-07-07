@@ -7,4 +7,5 @@ public interface ICarService {
     public boolean updateCar(Car car);
     public boolean deleteCar(int carId);
     public ArrayList<Car> listCars();
+    public ArrayList<Car> showAvailableCars();
 }

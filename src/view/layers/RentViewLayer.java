@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.JFileChooser;
 import javax.swing.RowFilter;
@@ -47,16 +48,11 @@ public class RentViewLayer extends javax.swing.JPanel {
                         Rental rental = rentalController.searchRental(idInt);
                         rentalId.setText(String.valueOf(rental.getRental_id()));
                         rentalDate.setText(rental.getRental_datetime().toString());
-                        totalPrice.setText(String.valueOf(rental.getTotal_price()));
-                        ownerId.setText(String.valueOf(rental.getOwner_id()));
+                        returnDate.setText(rental.getReturn_datetime().toString());
                         carId.setText(String.valueOf(rental.getCar_id()));
-                        categoryId.setText(String.valueOf(rental.getCategory_id()));
                         customerId.setText(String.valueOf(rental.getCustomer_id()));
-                        rentalStatus.setText(rental.getRental_status());
                         pickup.setText(rental.getPickup());
                         dropoff.setText(rental.getDropoff());
-                        driverId.setText(String.valueOf(rental.getDriver_id()));
-                        paymentId.setText(String.valueOf(rental.getPayment_id()));
                         ADEPanel.setVisible(true);
                     }
                 }
@@ -134,10 +130,10 @@ public class RentViewLayer extends javax.swing.JPanel {
             Object[] row = {
                     rental.getRental_id(),
                     rental.getRental_datetime(),
-                    rental.getTotal_price(),
+                    rental.getReturn_datetime(),
                     rental.getCar_id(),
-                    rental.getOwner_id(),
-                    rental.getDriver_id()
+                    rental.getPickup(),
+                    rental.getDropoff()
             };
             model.addRow(row);
         }
@@ -154,10 +150,9 @@ public class RentViewLayer extends javax.swing.JPanel {
             Object[] row = {
                     rental.getRental_id(),
                     rental.getRental_datetime(),
-                    rental.getTotal_price(),
                     rental.getCar_id(),
-                    rental.getOwner_id(),
-                    rental.getDriver_id()
+                    rental.getRental_datetime(),
+                    rental.getReturn_datetime()
             };
             model.addRow(row);
         }
@@ -175,23 +170,19 @@ public class RentViewLayer extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        printPDF = new javax.swing.JButton();
+
         ADEPanel = new javax.swing.JPanel();
         addRent = new javax.swing.JButton();
         deleteRent = new javax.swing.JButton();
         editRent = new javax.swing.JButton();
         rentalId = new javax.swing.JTextField();
         rentalDate = new javax.swing.JTextField();
-        totalPrice = new javax.swing.JTextField();
-        ownerId = new javax.swing.JTextField();
         carId = new javax.swing.JTextField();
         customerId = new javax.swing.JTextField();
-        categoryId = new javax.swing.JTextField();
-        rentalStatus = new javax.swing.JTextField();
+        returnDate = new javax.swing.JTextField();
         pickup = new javax.swing.JTextField();
         dropoff = new javax.swing.JTextField();
-        driverId = new javax.swing.JTextField();
-        paymentId = new javax.swing.JTextField();
-        printPDF = new javax.swing.JButton();
         searchPanel = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -213,7 +204,7 @@ public class RentViewLayer extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "rentalId", "rentalDate", "Amount", "Car", "Owner", "Driver"
+                "rentalId", "rentalDate", "returnDate", "Car", "Pick up", "Drop off"
             }
         ) {
             Class[] types = new Class [] {
@@ -225,6 +216,14 @@ public class RentViewLayer extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+
+        printPDF.setText("Print");
+        printPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printPDFActionPerformed(evt);
+            }
+        });
+
 
         addRent.setText("Add");
         addRent.addActionListener(new java.awt.event.ActionListener() {
@@ -247,29 +246,24 @@ public class RentViewLayer extends javax.swing.JPanel {
             }
         });
 
-        rentalId.setText("jTextField1");
+        rentalId.setText("Rental Id");
 
-        rentalDate.setText("jTextField7");
+        rentalDate.setText("return date");
 
-        totalPrice.setText("jTextField8");
+        carId.setText("Car Id");
 
-        ownerId.setText("jTextField9");
+        customerId.setText("Customer Id");
 
-        carId.setText("jTextField10");
+        returnDate.setText("return date");
+        returnDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnDateActionPerformed(evt);
+            }
+        });
 
-        customerId.setText("jTextField11");
+        pickup.setText("pick up");
 
-        categoryId.setText("jTextField12");
-
-        rentalStatus.setText("jTextField13");
-
-        pickup.setText("jTextField14");
-
-        dropoff.setText("jTextField15");
-
-        driverId.setText("jTextField16");
-
-        paymentId.setText("jTextField17");
+        dropoff.setText("drop off");
 
         printPDF.setText("Print");
         printPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -285,40 +279,27 @@ public class RentViewLayer extends javax.swing.JPanel {
             .addGroup(ADEPanelLayout.createSequentialGroup()
                 .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ADEPanelLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(25, 25, 25)
                         .addComponent(addRent)
-                        .addGap(35, 35, 35)
-                        .addComponent(deleteRent)
-                        .addGap(18, 18, 18)
-                        .addComponent(editRent))
+                        .addGap(33, 33, 33)
+                        .addComponent(deleteRent))
                     .addGroup(ADEPanelLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rentalId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rentalId, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(ADEPanelLayout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(ADEPanelLayout.createSequentialGroup()
-                                        .addComponent(customerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(paymentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(ADEPanelLayout.createSequentialGroup()
-                                        .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(carId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(totalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(ownerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(rentalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(dropoff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(driverId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(pickup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(rentalStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(categoryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(ADEPanelLayout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(customerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(rentalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dropoff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(24, 24, 24)
+                                .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pickup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(returnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(carId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(18, 18, 18)
+                .addComponent(editRent)
+
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ADEPanelLayout.setVerticalGroup(
@@ -327,35 +308,22 @@ public class RentViewLayer extends javax.swing.JPanel {
                 .addGap(39, 39, 39)
                 .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rentalId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(categoryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(returnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rentalStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rentalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rentalDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pickup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ownerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dropoff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(driverId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dropoff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(carId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(customerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paymentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(customerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addRent)
                     .addComponent(deleteRent)
-                    .addComponent(editRent))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                    .addComponent(editRent)))
         );
 
         searchButton.setText("Search");
@@ -372,9 +340,9 @@ public class RentViewLayer extends javax.swing.JPanel {
             .addGroup(searchPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(searchButton)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,7 +350,7 @@ public class RentViewLayer extends javax.swing.JPanel {
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(51, 51, 255));
@@ -488,17 +456,21 @@ public class RentViewLayer extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 2, Short.MAX_VALUE)
-                                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(ADEPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(61, 61, 61))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ADEPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -509,15 +481,18 @@ public class RentViewLayer extends javax.swing.JPanel {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addGap(61, 61, 61)
                         .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(ADEPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -531,16 +506,11 @@ public class RentViewLayer extends javax.swing.JPanel {
     rentalController.updateRental(
     Integer.parseInt(rentalId.getText()),
     Date.valueOf(rentalDate.getText()),
-    Integer.parseInt(totalPrice.getText()),
-    Integer.parseInt(ownerId.getText()),
+    Date.valueOf(returnDate.getText()),
     Integer.parseInt(carId.getText()),
-    Integer.parseInt(categoryId.getText()),
     Integer.parseInt(customerId.getText()),
-    rentalStatus.getText(),
     pickup.getText(),
-    dropoff.getText(),
-    Integer.parseInt(driverId.getText()),
-    Integer.parseInt(paymentId.getText())
+    dropoff.getText()
 );
 loadRental();
 
@@ -558,16 +528,11 @@ loadRental();
             rentalController.createRental(
     Integer.parseInt(rentalId.getText()),
     Date.valueOf(rentalDate.getText()),
-    Integer.parseInt(totalPrice.getText()),
-    Integer.parseInt(ownerId.getText()),
+    Date.valueOf(returnDate.getText()),
     Integer.parseInt(carId.getText()),
-    Integer.parseInt(categoryId.getText()),
     Integer.parseInt(customerId.getText()),
-    rentalStatus.getText(),
     pickup.getText(),
-    dropoff.getText(),
-    Integer.parseInt(driverId.getText()),
-    Integer.parseInt(paymentId.getText())
+    dropoff.getText()
 );
 loadRental();
     }//GEN-LAST:event_addRentActionPerformed
@@ -589,15 +554,17 @@ loadRental();
             }
     }//GEN-LAST:event_printPDFActionPerformed
 
+    private void returnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_returnDateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ADEPanel;
     private javax.swing.JButton addRent;
     private javax.swing.JTextField carId;
-    private javax.swing.JTextField categoryId;
     private javax.swing.JTextField customerId;
     private javax.swing.JButton deleteRent;
-    private javax.swing.JTextField driverId;
     private javax.swing.JTextField dropoff;
     private javax.swing.JButton editRent;
     private javax.swing.JLabel jLabel2;
@@ -611,16 +578,13 @@ loadRental();
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField ownerId;
-    private javax.swing.JTextField paymentId;
     private javax.swing.JTextField pickup;
     private javax.swing.JButton printPDF;
     private javax.swing.JTextField rentalDate;
     private javax.swing.JTextField rentalId;
-    private javax.swing.JTextField rentalStatus;
+    private javax.swing.JTextField returnDate;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchPanel;
-    private javax.swing.JTextField totalPrice;
     // End of variables declaration//GEN-END:variables
 }

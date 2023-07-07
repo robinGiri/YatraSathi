@@ -30,20 +30,26 @@
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
-                              <Component id="searchPanel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="ADEPanel" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="searchPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="ADEPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                      <Component id="printPDF" min="-2" pref="122" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -59,16 +65,19 @@
                   <Component id="jPanel7" max="32767" attributes="0"/>
                   <Component id="jPanel5" max="32767" attributes="0"/>
               </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="528" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                       <Component id="searchPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="ADEPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="printPDF" min="-2" pref="54" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -90,10 +99,10 @@
               <Table columnCount="6" rowCount="4">
                 <Column editable="true" title="rentalId" type="java.lang.Object"/>
                 <Column editable="true" title="rentalDate" type="java.lang.Object"/>
-                <Column editable="true" title="Amount" type="java.lang.Integer"/>
+                <Column editable="true" title="returnDate" type="java.lang.Integer"/>
                 <Column editable="true" title="Car" type="java.lang.String"/>
-                <Column editable="true" title="Owner" type="java.lang.String"/>
-                <Column editable="true" title="Driver" type="java.lang.String"/>
+                <Column editable="true" title="Pick up" type="java.lang.String"/>
+                <Column editable="true" title="Drop off" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -137,6 +146,15 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="printPDF">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Print"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printPDFActionPerformed"/>
+      </Events>
+    </Component>
+
     <Container class="javax.swing.JPanel" name="ADEPanel">
 
       <Layout>
@@ -145,16 +163,26 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="addRent" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="deleteRent" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="editRent" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="rentalId" min="-2" pref="73" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="customerId" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rentalDate" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dropoff" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="pickup" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="returnDate" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="carId" min="-2" max="-2" attributes="0"/>
                               <Component id="rentalId" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -186,11 +214,9 @@
                               </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                          <Component id="printPDF" min="-2" pref="122" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="editRent" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -201,42 +227,26 @@
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="rentalId" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="categoryId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="returnDate" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="rentalStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rentalDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="totalPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="pickup" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="ownerId" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="dropoff" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="driverId" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="carId" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="customerId" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="paymentId" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Component id="customerId" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="74" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="addRent" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="deleteRent" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="editRent" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="39" max="32767" attributes="0"/>
-                  <Component id="printPDF" min="-2" pref="54" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -268,71 +278,41 @@
         </Component>
         <Component class="javax.swing.JTextField" name="rentalId">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
+            <Property name="text" type="java.lang.String" value="Rental Id"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="rentalDate">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField7"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="totalPrice">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField8"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="ownerId">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField9"/>
+            <Property name="text" type="java.lang.String" value="return date"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="carId">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField10"/>
+            <Property name="text" type="java.lang.String" value="Car Id"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="customerId">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField11"/>
+            <Property name="text" type="java.lang.String" value="Customer Id"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="categoryId">
+        <Component class="javax.swing.JTextField" name="returnDate">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField12"/>
+            <Property name="text" type="java.lang.String" value="return date"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="rentalStatus">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField13"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnDateActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="pickup">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField14"/>
+            <Property name="text" type="java.lang.String" value="pick up"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="dropoff">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField15"/>
+            <Property name="text" type="java.lang.String" value="drop off"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="driverId">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField16"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="paymentId">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField17"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="printPDF">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Print"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printPDFActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -344,20 +324,21 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="searchField" min="-2" pref="221" max="-2" attributes="0"/>
-                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="searchButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="searchField" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="searchButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
