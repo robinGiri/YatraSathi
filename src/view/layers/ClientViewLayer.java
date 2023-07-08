@@ -460,8 +460,8 @@ public class ClientViewLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_isAdminActionPerformed
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
-        UsersController usersController = new UsersController();
-        usersController.createUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Date.valueOf(dateofjoin.getText()), Address.getText(),contact.getText(),subscription.getText(),Boolean.TRUE);
+        UsersController userController = new UsersController();
+        userController.createUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Date.valueOf(dateofjoin.getText()), Address.getText(),contact.getText(),subscription.getText(),Boolean.TRUE);
     
 loadClient();
    
@@ -478,8 +478,8 @@ loadClient();
     }//GEN-LAST:event_contactActionPerformed
 
     private void deleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserActionPerformed
-        UsersController usersController = new UsersController();
-        usersController.deleteUser(Integer.parseInt(userid.getText()));
+        UsersController userController = new UsersController();
+        userController.deleteUser(Integer.parseInt(userid.getText()));
         loadClient();
     }//GEN-LAST:event_deleteUserActionPerformed
 
@@ -488,8 +488,8 @@ loadClient();
     }//GEN-LAST:event_dateofjoinActionPerformed
 
     private void editUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserActionPerformed
-        UsersController usersController = new UsersController();
-        usersController.updateUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Date.valueOf(dateofjoin.getText()), Address.getText(),contact.getText(),subscription.getText(),Boolean.TRUE);
+        UsersController userController = new UsersController();
+        userController.updateUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Date.valueOf(dateofjoin.getText()), Address.getText(),contact.getText(),subscription.getText(),Boolean.TRUE);
     
 loadClient();
     }//GEN-LAST:event_editUserActionPerformed
