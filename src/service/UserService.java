@@ -23,7 +23,7 @@ public class UserService implements  IUserService{
                 "dateOfJoin DATE," +
                 "address VARCHAR(100), " +
                 "contact VARCHAR(20), " +
-                "subscription VARCHAR(50), " +
+                "subscriptionId VARCHAR(50), " +
                 "isUser BOOLEAN)";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -41,7 +41,7 @@ public class UserService implements  IUserService{
     public boolean createUser(User user) {
         checkTableUser();
         connection = dbConnection.connection;
-        String query = "INSERT INTO user( userName, email, password,dateOfJoin, address, contact, subscription,isUser) " +
+        String query = "INSERT INTO user( userName, email, password,dateOfJoin, address, contact, subscriptionId,isUser) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -76,7 +76,7 @@ public class UserService implements  IUserService{
             preparedStatement.setString(5, user.getAddress());
             preparedStatement.setString(6, user.getContact());
             preparedStatement.setString(7, user.getSubscription());
-            preparedStatement.setBoolean(9, user.getisUser());
+            preparedStatement.setBoolean(8, user.getisUser());
             int status = preparedStatement.executeUpdate();
             System.out.println(status);
             return true;
@@ -118,9 +118,9 @@ public class UserService implements  IUserService{
                 Date dateOfJoin = resultSet.getDate("dateOfJoin");
                 String address = resultSet.getString("address");
                 String contact = resultSet.getString("contact");
-                String subscription = resultSet.getString("subscription");
+                String subscriptionId = resultSet.getString("subscriptionId");
                 boolean isUser = resultSet.getBoolean("isUser");
-                User user = new User(userName,email, password, dateOfJoin, address, contact, subscription, isUser);
+                User user = new User(userId,userName,email, password, dateOfJoin, address, contact, subscriptionId, isUser);
                 userList.add(user);
             }
 
