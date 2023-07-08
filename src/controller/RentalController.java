@@ -4,7 +4,7 @@ import model.Rental;
 import service.RentalService;
 
 import java.util.ArrayList;
-import model.Car;
+
 
 public class RentalController {
     private RentalService rentalService;
@@ -13,25 +13,23 @@ public class RentalController {
         rentalService = new RentalService();
     }
 
-    public boolean createRental(int rentalId, java.util.Date rentalDateTime,
-            int totalPrice, int ownerId, int carId, int categoryId, int customerId,
-            String rentalStatus, String pickup, String dropoff, int driverId, int paymentId) {
-        Rental rental = new Rental(rentalId, new java.sql.Date(rentalDateTime.getTime()),
-                 totalPrice, ownerId, carId, categoryId, customerId,
-                rentalStatus, pickup, dropoff, driverId, paymentId);
+    public boolean createRental(int rentalId, java.util.Date rentalDateTime, java.util.Date returnDateTime,
+        int carId, int customerId, String pickup, String dropoff) {
+        Rental rental = new Rental(rentalId, new java.sql.Date(rentalDateTime.getTime()), new java.sql.Date(returnDateTime.getTime()),carId, customerId,
+                pickup, dropoff);
         return rentalService.createRental(rental);
     }
 
-    public boolean updateRental(int rentalId, java.util.Date rentalDateTime, 
-            int totalPrice, int ownerId, int carId, int categoryId, int customerId,
-            String rentalStatus, String pickup, String dropoff, int driverId, int paymentId) {
-        Rental rental = new Rental(rentalId, new java.sql.Date(rentalDateTime.getTime()),
-                 totalPrice, ownerId, carId, categoryId, customerId,
-                rentalStatus, pickup, dropoff, driverId, paymentId);
+    public boolean updateRental(int rentalId, java.util.Date rentalDateTime, java.util.Date returnDateTime,
+            int carId, int customerId,
+            String pickup, String dropoff) {
+        Rental rental = new Rental(rentalId, new java.sql.Date(rentalDateTime.getTime()),new java.sql.Date(returnDateTime.getTime()),
+                 carId, customerId, pickup, dropoff);
         return rentalService.updateRental(rental);
     }
 
     public boolean deleteRental(int rentalId) {
+        
         return rentalService.deleteRental(rentalId);
     }
         public Rental searchRental(int rentalId){
@@ -50,4 +48,5 @@ public class RentalController {
             return rentalsList;
         }
     }
+    
 }
