@@ -31,6 +31,7 @@ public class SubscriptionServices implements ISubscriptionService {
     }
 
     // Create subscription
+    @Override
     public boolean createSubscription(Subscription subscription) {
         CheckTableSubscription();
         connection = dbConnection.connection;
@@ -51,7 +52,7 @@ public class SubscriptionServices implements ISubscriptionService {
         return (false);
 
     }
-
+    @Override
     public boolean updateSubscription(Subscription subscription) {
         connection = dbConnection.connection;
         String query = "UPDATE subscription SET (subscriptionId = ?,type = ?,discountRate = ?)";
@@ -66,7 +67,7 @@ public class SubscriptionServices implements ISubscriptionService {
         }
         return false;
     }
-
+    @Override
     public boolean deleteSubscription(Subscription subscription) {
         connection = dbConnection.connection;
         String query = "DELETE FROM subscription where subscriptionId=?;";
@@ -79,7 +80,7 @@ public class SubscriptionServices implements ISubscriptionService {
         }
         return false;
     }
-
+    @Override
     public ArrayList<Subscription> listSubscription() {
         ArrayList<Subscription> subscriptionslist = new ArrayList<Subscription>();
         connection = dbConnection.connection;

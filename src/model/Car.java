@@ -24,7 +24,7 @@ public class Car {
         this.car_status = car_status;
         this.car_image = car_image;
         this.rate = rate;
-        this.owner_id = owner_id;
+        
     }
        public Car(int car_id, String car_name, String car_brand, Date car_model_year, String car_color, String plate_number, String car_status, int rate, int owner_id) {
         this.car_id = car_id;

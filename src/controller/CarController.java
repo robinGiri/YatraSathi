@@ -50,4 +50,9 @@ public class CarController {
             return carsList;
         }
     }
+    
+    public ArrayList<Car> showAvailableCar(){
+       ArrayList<Car> carsList = carService.showAvailableCars();
+       return carsList;
+    }
 }

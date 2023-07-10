@@ -132,6 +132,36 @@ public class CarService implements ICarService {
         }
         return false;
     }
+     @Override
+    public ArrayList<Car> showAvailableCars(){
+         ArrayList<Car> carsList = new ArrayList<Car>();
+        connection = dbConnection.connection;
+        String query = "SELECT * FROM car where carStatus ='Available'";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int carId = resultSet.getInt("carId");
+                String carName = resultSet.getString("carName");
+                String carBrand = resultSet.getString("carBrand");
+                Date carModelYear = resultSet.getDate("carModelYear");
+                String carColor = resultSet.getString("carColor");
+                String plateNumber = resultSet.getString("plateNumber");
+                String carStatus = resultSet.getString("carStatus");
+                String carImage = resultSet.getString("carImage");
+                int rate = resultSet.getInt("rate");
+                int ownerId = resultSet.getInt("ownerId");
+
+                Car car = new Car(carId, carName, carBrand, carModelYear, carColor, plateNumber,
+                        carStatus, carImage, rate);
+                carsList.add(car);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return carsList;
+        
+    }
 
     public ArrayList<Car> listCars() {
         ArrayList<Car> carsList = new ArrayList<Car>();
@@ -161,6 +191,7 @@ public class CarService implements ICarService {
         }
         return carsList;
     }
+   
     public static void main(String[] args) {
     CarService carService = new CarService();
 
@@ -170,8 +201,9 @@ public class CarService implements ICarService {
     Car car2 = new Car(2, "Honda Civic", "Honda", new java.sql.Date(System.currentTimeMillis()),
             "Red", "XYZ789", "Not Available", "car2.jpg", 60);
 
-    carService.createCar(car1);
-    carService.createCar(car2);
+//    carService.createCar(car1);
+//    carService.createCar(car2);
+    carService.showAvailableCars();
 }
     
 }

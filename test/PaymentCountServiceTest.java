@@ -1,22 +1,21 @@
-package test;
-import org.junit.Assert; 
-
-import service.CurrentMonthPaymentCountService;
+import static org.junit.Assert.*;
+import org.junit.Test;
+import service.PaymentCountService;
 
 public class PaymentCountServiceTest {
 
-    public void countTotalPaymentAmount() {
-        double totalPaymentAmount = 0.0;
-        CurrentMonthPaymentCountService paymentCountService = new CurrentMonthPaymentCountService();
-        totalPaymentAmount = paymentCountService.countCurrentMonthPaymentAmount();
+    @Test
+    public void testCountTotalPaymentAmount() {
+        // Create an instance of PaymentCountService
+        PaymentCountService paymentCountService = new PaymentCountService();
 
-        assertTrue(totalPaymentAmount > 0);
+        // Call the method under test
+        double totalPaymentAmount = paymentCountService.countTotalPaymentAmount();
 
+        // Define the expected result
+        double expectedTotalPaymentAmount = 450.0; 
+
+        // Assert the result
+        assertEquals(expectedTotalPaymentAmount, totalPaymentAmount, 0.001);
     }
-
-    public static void main(String[] args) {
-        PaymentCountServiceTest paymentCountServiceTest = new PaymentCountServiceTest();
-        paymentCountServiceTest.countTotalPaymentAmount();
-    }
-
 }
