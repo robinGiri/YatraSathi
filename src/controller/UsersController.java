@@ -21,10 +21,10 @@ public class UsersController {
     }
 
     // Update an existing user
-    public boolean updateUser(int userId, String userName, String email, String password,Date dateOfJoin, String address,
+    public boolean updateUser(int userId, String userName, String email, String password,String address,
             String contact,
             String subscription,boolean isUser) {
-        User user = new User(userName, address, contact,dateOfJoin, address, contact, subscription, isUser);
+            User user = new User(userId, userName, email, contact, address, contact, subscription, isUser);
         return userServices.updateUser(user);
     }
 
@@ -32,7 +32,7 @@ public class UsersController {
     public boolean deleteUser(int userId) {
         User user = new User();
         user.setUserId(userId);
-        return userServices.deleteUser(user);
+        return userServices.deleteUser(user); 
     }
 
     // Show a list of users

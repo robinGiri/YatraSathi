@@ -23,17 +23,23 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDate;
 
 
 //import javax.swing.table.DefaultTableModel;
 
 public class ClientViewLayer extends javax.swing.JPanel {
     UsersController usersController = new UsersController();
-    
+      DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+      LocalDate now = LocalDate.now();
+      
 
     public ClientViewLayer() {
         initComponents();
         loadClient();
+        dateofjoin.setText(now.toString());
+        subscription.setSelectedIndex(0);
               // This line will see if the user is touching the list of table and load the data of the selected row in the fields;
           jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
@@ -51,7 +57,16 @@ public class ClientViewLayer extends javax.swing.JPanel {
                         email.setText(user.getEmail());
                         Address.setText(user.getAddress());
                         contact.setText(user.getContact());
-                        subscription.setText(user.getSubscription());
+//                        if(user.getSubscription() == "null"){
+//                           subscription.setSelectedIndex(0); 
+//                        }else if(user.getSubscription() == "platinium"){
+//                            subscription.setSelectedIndex(1);
+//                        }else if(user.getSubscription() == "gold"){
+//                            subscription.setSelectedIndex(2);
+//                        }else{
+//                        subscription.setSelectedIndex(3);
+//                       }
+                        subscription.setSelectedItem(user.getSubscription());
                         isAdmin.setSelected(user.isIsUser());
                     }
                 }
@@ -72,7 +87,7 @@ public class ClientViewLayer extends javax.swing.JPanel {
                   email.setText("");
                   contact.setText("");
                   Address.setText("");
-                  subscription.setText("");
+                  subscription.setSelectedItem("null");
                   isAdmin.setSelected(false);
             }
         }
@@ -130,9 +145,9 @@ public class ClientViewLayer extends javax.swing.JPanel {
         isAdmin = new javax.swing.JCheckBox();
         Address = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
-        subscription = new javax.swing.JTextField();
         deleteUser = new javax.swing.JButton();
         editUser = new javax.swing.JButton();
+        subscription = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -308,8 +323,6 @@ public class ClientViewLayer extends javax.swing.JPanel {
             }
         });
 
-        subscription.setText("Subscription");
-
         deleteUser.setText("Delete");
         deleteUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,6 +337,13 @@ public class ClientViewLayer extends javax.swing.JPanel {
             }
         });
 
+        subscription.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "null", "platinium", "gold", "silver" }));
+        subscription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subscriptionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout addLayout = new javax.swing.GroupLayout(add);
         add.setLayout(addLayout);
         addLayout.setHorizontalGroup(
@@ -331,31 +351,35 @@ public class ClientViewLayer extends javax.swing.JPanel {
             .addGroup(addLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(isAdmin)
                     .addGroup(addLayout.createSequentialGroup()
-                        .addComponent(addUser)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteUser)
-                        .addGap(18, 18, 18)
-                        .addComponent(editUser))
-                    .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(addLayout.createSequentialGroup()
-                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(addLayout.createSequentialGroup()
-                            .addComponent(userid, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addLayout.createSequentialGroup()
+                                .addComponent(addUser)
+                                .addGap(18, 18, 18)
+                                .addComponent(deleteUser)
+                                .addGap(18, 18, 18)
+                                .addComponent(editUser))
+                            .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(addLayout.createSequentialGroup()
+                                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(addLayout.createSequentialGroup()
+                                    .addComponent(userid, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(addLayout.createSequentialGroup()
+                                .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(isAdmin))
+                                .addGap(18, 18, 18)
+                                .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(subscription, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Address, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(12, Short.MAX_VALUE))
                     .addGroup(addLayout.createSequentialGroup()
-                        .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateofjoin, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Address, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                            .addComponent(subscription))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(dateofjoin, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         addLayout.setVerticalGroup(
             addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,19 +395,19 @@ public class ClientViewLayer extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateofjoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(isAdmin)
                     .addComponent(subscription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(isAdmin)
-                .addGap(46, 46, 46)
+                .addGap(22, 22, 22)
+                .addComponent(dateofjoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addUser)
                     .addComponent(deleteUser)
                     .addComponent(editUser))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         searchButton.setText("Search");
@@ -419,7 +443,7 @@ public class ClientViewLayer extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(587, Short.MAX_VALUE)
+                .addContainerGap(581, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -440,7 +464,7 @@ public class ClientViewLayer extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
+                .addContainerGap(152, Short.MAX_VALUE)
                 .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -461,7 +485,8 @@ public class ClientViewLayer extends javax.swing.JPanel {
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
         UsersController userController = new UsersController();
-        userController.createUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Date.valueOf(dateofjoin.getText()), Address.getText(),contact.getText(),subscription.getText(),Boolean.TRUE);
+      
+        userController.createUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Date.valueOf(now), Address.getText(),contact.getText(),subscription.getSelectedItem().toString(),Boolean.TRUE);
     
 loadClient();
    
@@ -489,10 +514,15 @@ loadClient();
 
     private void editUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserActionPerformed
         UsersController userController = new UsersController();
-        userController.updateUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Date.valueOf(dateofjoin.getText()), Address.getText(),contact.getText(),subscription.getText(),Boolean.TRUE);
+//        System.out.println(subscription.getSelectedItem().toString());
+        userController.updateUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Address.getText(),contact.getText(),subscription.getSelectedItem().toString(),Boolean.getBoolean(isAdmin.getText()));
     
 loadClient();
     }//GEN-LAST:event_editUserActionPerformed
+
+    private void subscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subscriptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_subscriptionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -521,7 +551,7 @@ loadClient();
     private javax.swing.JTextField password;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
-    private javax.swing.JTextField subscription;
+    private javax.swing.JComboBox<String> subscription;
     private javax.swing.JTextField userid;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
