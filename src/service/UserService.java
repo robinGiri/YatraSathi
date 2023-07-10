@@ -23,7 +23,7 @@ public class UserService implements  IUserService{
                 "dateOfJoin DATE," +
                 "address VARCHAR(100), " +
                 "contact VARCHAR(20), " +
-                "subscriptionId VARCHAR(50), " +
+                "subscription VARCHAR(50), " +
                 "isUser BOOLEAN)";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -41,7 +41,7 @@ public class UserService implements  IUserService{
     public boolean createUser(User user) {
         checkTableUser();
         connection = dbConnection.connection;
-        String query = "INSERT INTO user( userName, email, password,dateOfJoin, address, contact, subscriptionId,isUser) " +
+        String query = "INSERT INTO user( userName, email, password,dateOfJoin, address, contact, subscription,isUser) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -65,18 +65,19 @@ public class UserService implements  IUserService{
     @Override
     public boolean updateUser(User user) {
         connection = dbConnection.connection;
-        String query = "UPDATE user SET userName = ?,email = ?, password = ?,dateOfJoin = ?, address = ?, contact = ?, " +
-                "subscriptionId = ?, isUser = ? WHERE userId = ?";
+        String query = "UPDATE user SET userName = ?,email = ?, password = ?, address = ?, contact = ?, " +
+                "subscription = ?, isUser = ? WHERE userId = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setDate(4, user.getDateOfJoin());
-            preparedStatement.setString(5, user.getAddress());
-            preparedStatement.setString(6, user.getContact());
-            preparedStatement.setString(7, user.getSubscription());
-            preparedStatement.setBoolean(8, user.getisUser());
+            preparedStatement.setString(4, user.getAddress());
+            preparedStatement.setString(5, user.getContact());
+            preparedStatement.setString(6, user.getSubscription());
+            preparedStatement.setBoolean(7, user.getisUser());
+            preparedStatement.setInt(8,user.getUserId());
+
             int status = preparedStatement.executeUpdate();
             System.out.println(status);
             return true;
@@ -118,9 +119,9 @@ public class UserService implements  IUserService{
                 Date dateOfJoin = resultSet.getDate("dateOfJoin");
                 String address = resultSet.getString("address");
                 String contact = resultSet.getString("contact");
-                String subscriptionId = resultSet.getString("subscriptionId");
+                String subscription = resultSet.getString("subscription");
                 boolean isUser = resultSet.getBoolean("isUser");
-                User user = new User(userId,userName,email, password, dateOfJoin, address, contact, subscriptionId, isUser);
+                User user = new User(userId,userName,email, password, dateOfJoin, address, contact, subscription, isUser);
                 userList.add(user);
             }
 
@@ -148,6 +149,7 @@ public class UserService implements  IUserService{
                 user.setContact(resultSet.getString("contact"));
                 user.setisUser(resultSet.getBoolean("isUser"));
                 user.setAddress(resultSet.getString("address"));
+                user.setSubscription(resultSet.getString("subscription"));
                 return user;
             }
         } catch (SQLException e) {
@@ -155,5 +157,9 @@ public class UserService implements  IUserService{
         }
         return null;
         
+    }
+    public static void main(String[] args) {
+        UserService userService = new UserService();
+        userService.checkTableUser();
     }
 }

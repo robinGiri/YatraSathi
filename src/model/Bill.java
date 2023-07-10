@@ -2,28 +2,51 @@ package model;
 import java.util.Date;
 
 public class Bill {
+    private int billNo;
+    private Date date;
+    private int carId;
     private int rentalId;
-    private int adminId;
-    private int paymentId;
-    private Date paymentDate;
-    private double paymentAmount;
-
-    public Bill(int rentalId, int adminId, int paymentId, Date paymentDate, double paymentAmount) {
-        this.rentalId = rentalId;
-        this.adminId = adminId;
-        this.paymentId = paymentId;
-        this.paymentDate = paymentDate;
-        this.paymentAmount = paymentAmount;
-    } 
-        public Bill(int rentalId,int paymentId, Date paymentDate, double paymentAmount) {
-            this.rentalId = rentalId;
-            this.paymentId = paymentId;
-            this.paymentDate = paymentDate;
-            this.paymentAmount = paymentAmount;
+    private int customerId;
+    public Bill(){
+        
     }
-    
-    public Bill() {
-    
+
+    public Bill(int billNo, Date date, int carId, int rentalId, int customerId) {
+        this.billNo = billNo;
+        this.date = date;
+        this.carId = carId;
+        this.rentalId = rentalId;
+        this.customerId = customerId;
+    }
+    public Bill(Date date, int carId, int rentalId, int customerId) {
+        this.date = date;
+        this.carId = carId;
+        this.rentalId = rentalId;
+        this.customerId = customerId;
+    }
+
+    public int getBillNo() {
+        return billNo;
+    }
+
+    public void setBillNo(int billNo) {
+        this.billNo = billNo;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+  
+    public int getCarId() {
+        return carId;
+    }
+
+    public void setCarId(int carId) {
+        this.carId = carId;
     }
 
     public int getRentalId() {
@@ -33,36 +56,11 @@ public class Bill {
     public void setRentalId(int rentalId) {
         this.rentalId = rentalId;
     }
-
-    public int getAdminId() {
-        return adminId;
+     public int getCustomerId() {
+        return customerId;
     }
 
-    public void setAdminId(int adminId) {
-        this.adminId = adminId;
-    }
-
-    public int getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(int paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public Date getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public double getPaymentAmount() {
-        return paymentAmount;
-    }
-
-    public void setPaymentAmount(double paymentAmount) {
-        this.paymentAmount = paymentAmount;
-    }
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }   
 }

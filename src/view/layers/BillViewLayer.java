@@ -24,8 +24,30 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.Bill;
+import model.*;
+import controller.*;
 public class BillViewLayer extends javax.swing.JPanel {
+    int idInt;
+    //Load the bills form the table and create the bill  
+    private int CreateBill(int id){
+        RentalController rentalController = new RentalController();
+        Rental rental = new Rental();
+        CarController carController = new CarController();
+        Car car = new Car();
+        UsersController usersController = new UsersController();
+        User user = new User();
+        rental = rentalController.searchRental(id);
+        int carId = rental.getCar_id();
+        int userId = rental.getCustomer_id();
+        car = carController.searchCar(carId);
+        user = usersController.getUserByID(userId);
+        txtCustomerName.setText(user.getUserName());
+        txtCarNo.setText(car.getPlate_number());
+        txtCarRate.setText(String.valueOf(car.getRate()));
+        txtRentalDate.setText(rental.getRental_datetime().toString());
+        txtReturnDate.setText(rental.getReturn_datetime().toString());
+        return 0;    
+    }
     public BillViewLayer() {
         initComponents();
         ADEPanel.setVisible(true);
@@ -37,14 +59,9 @@ public class BillViewLayer extends javax.swing.JPanel {
                     if (selectedRow >= 0) {
                         // Retrieve data from the selected row
                         String id = jTable1.getValueAt(selectedRow, 0).toString();
-                        int idInt = Integer.parseInt(id);
-                        System.out.println(idInt);
+                        idInt = Integer.parseInt(id);
                         BillController billController = new BillController();
-                        Bill bill = billController.searchBill(idInt);
-                        rentalId.setText(String.valueOf(bill.getRentalId()));
-                        paymentId.setText(String.valueOf(bill.getPaymentId()));
-                        paymentDate.setText(bill.getPaymentDate().toString());
-                        paymentAmount.setText(String.valueOf(bill.getPaymentAmount()));
+                        CreateBill(idInt);
                         ADEPanel.setVisible(true);
                     }    
                 }        
@@ -114,7 +131,7 @@ public class BillViewLayer extends javax.swing.JPanel {
         e.printStackTrace();
     }
 }
-//Load the car in the table
+//Load the bills in the table
        private void loadBill() {
         BillController billController = new BillController();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -123,9 +140,9 @@ public class BillViewLayer extends javax.swing.JPanel {
         for (Bill bill : billController.listBills()) {
             Object[] row = {
                     bill.getRentalId(),
-                    bill.getPaymentId(),
-                    bill.getPaymentDate(),
-                    bill.getPaymentAmount()
+                    bill.getCarId(),
+                    bill.getDate(),
+                   bill.getCustomerId()
             };
             model.addRow(row);
         }
@@ -144,15 +161,32 @@ public class BillViewLayer extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
         ADEPanel = new javax.swing.JPanel();
-        rentalId = new javax.swing.JTextField();
-        paymentId = new javax.swing.JTextField();
-        paymentDate = new javax.swing.JTextField();
-        paymentAmount = new javax.swing.JTextField();
-        billAdd = new javax.swing.JButton();
-        billDelete = new javax.swing.JButton();
-        billEdit = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtBillno = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtDate = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtCarNo = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtCarName = new javax.swing.JLabel();
+        txtCarRate = new javax.swing.JLabel();
+        txtRentalDate = new javax.swing.JLabel();
+        txtReturnDate = new javax.swing.JLabel();
+        txtTotalAmount = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtTotalAmount1 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtCustomerName = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -166,86 +200,194 @@ public class BillViewLayer extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "rentalId", "paymentId", "paymentDate", "paymentAmount"
+                "Bill no", "Car Id", "Date", "Total amount"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        rentalId.setText("jTextField1");
-        rentalId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rentalIdActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
-        paymentId.setText("jTextField2");
-        paymentId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentIdActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Bill no:");
 
-        paymentDate.setText("jTextField3");
+        txtBillno.setText("{BillNo}");
 
-        paymentAmount.setText("jTextField4");
+        jLabel2.setText("Date:");
 
-        billAdd.setText("Add");
-        billAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billAddActionPerformed(evt);
-            }
-        });
+        txtDate.setText("{Date}");
 
-        billDelete.setText("Delete");
-        billDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billDeleteActionPerformed(evt);
-            }
-        });
+        jLabel4.setText("Car No:");
 
-        billEdit.setText("Edit");
-        billEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billEditActionPerformed(evt);
-            }
-        });
+        txtCarNo.setText("{CarNo}");
 
-        javax.swing.GroupLayout ADEPanelLayout = new javax.swing.GroupLayout(ADEPanel);
-        ADEPanel.setLayout(ADEPanelLayout);
-        ADEPanelLayout.setHorizontalGroup(
-            ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ADEPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ADEPanelLayout.createSequentialGroup()
-                        .addComponent(billAdd)
-                        .addGap(35, 35, 35)
-                        .addComponent(billDelete)
-                        .addGap(32, 32, 32)
-                        .addComponent(billEdit))
-                    .addComponent(paymentAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paymentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paymentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rentalId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        jLabel5.setText("Car Name:");
+
+        jLabel6.setText("Car Rate:");
+
+        jLabel7.setText("Rental date:");
+
+        jLabel8.setText("Return date:");
+
+        jLabel10.setText("Total Amount:");
+
+        txtCarName.setText("{CarName}");
+
+        txtCarRate.setText("{CarRate}");
+
+        txtRentalDate.setText("{RentalDate}");
+
+        txtReturnDate.setText("{ReturnDate}");
+
+        txtTotalAmount.setText("{TotalAmount}");
+
+        jLabel11.setText("Discount Amount:");
+
+        txtTotalAmount1.setText("{DiscountAmount}");
+
+        jLabel12.setText("Total:");
+
+        txtTotal.setText("{Total}");
+
+        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+
+        jLabel3.setBackground(new java.awt.Color(153, 153, 255));
+        jLabel3.setFont(new java.awt.Font("Georgia", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("YatraSathi: Rent My Car");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(122, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jLabel9.setText("Customer Name:");
+
+        txtCustomerName.setText("{CustomerName}");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(25, 25, 25)
+                        .addComponent(txtTotalAmount))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalAmount1))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(32, 32, 32))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addGap(76, 76, 76)
+                            .addComponent(txtTotal)
+                            .addGap(105, 105, 105)))))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBillno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(141, 141, 141)
+                                .addComponent(txtReturnDate))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(150, 150, 150)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCarRate)
+                                    .addComponent(txtCarNo)
+                                    .addComponent(txtCarName)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(142, 142, 142)
+                                .addComponent(txtRentalDate))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCustomerName)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        ADEPanelLayout.setVerticalGroup(
-            ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ADEPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(rentalId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtBillno))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paymentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paymentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paymentAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addGroup(ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(billAdd)
-                    .addComponent(billDelete)
-                    .addComponent(billEdit))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtDate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtCustomerName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtCarNo))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtCarName))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCarRate))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtRentalDate))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtReturnDate))
+                .addGap(59, 59, 59)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtTotalAmount))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtTotalAmount1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtTotal))
+                .addGap(18, 18, 18))
         );
 
         searchButton.setText("Search");
@@ -260,11 +402,11 @@ public class BillViewLayer extends javax.swing.JPanel {
         searchPanelLayout.setHorizontalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
+                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchButton)
-                .addGap(24, 24, 24))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,39 +425,33 @@ public class BillViewLayer extends javax.swing.JPanel {
             }
         });
 
-        jLayeredPane1.setLayer(ADEPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(searchPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(printPDF, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(ADEPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 23, Short.MAX_VALUE)))
+        javax.swing.GroupLayout ADEPanelLayout = new javax.swing.GroupLayout(ADEPanel);
+        ADEPanel.setLayout(ADEPanelLayout);
+        ADEPanelLayout.setHorizontalGroup(
+            ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ADEPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
+            .addGroup(ADEPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(102, 102, 102)
+            .addGroup(ADEPanelLayout.createSequentialGroup()
+                .addGap(174, 174, 174)
                 .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(ADEPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+        ADEPanelLayout.setVerticalGroup(
+            ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ADEPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -324,38 +460,22 @@ public class BillViewLayer extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ADEPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ADEPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void billAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billAddActionPerformed
-        BillController billController = new BillController();
-        billController.createBill(Integer.getInteger(rentalId.getText()),Integer.getInteger( paymentId.getText()),Date.valueOf(paymentDate.getText()) , Double.parseDouble(paymentAmount.getText()));
-        loadBill();
-    }//GEN-LAST:event_billAddActionPerformed
-
-    private void billDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billDeleteActionPerformed
-        BillController billController = new BillController();
-        billController.deleteBill(Integer.getInteger(rentalId.getText()));
-        loadBill();
-    }//GEN-LAST:event_billDeleteActionPerformed
-
-    private void billEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billEditActionPerformed
-        BillController billController = new BillController();
-        billController.updateBill(Integer.getInteger(rentalId.getText()),Integer.getInteger(paymentId.getText()) , Date.valueOf(paymentDate.getText()), Double.parseDouble(paymentAmount.getText()));
-        loadBill();
-    }//GEN-LAST:event_billEditActionPerformed
 
     private void printPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPDFActionPerformed
          JFileChooser fileChooser = new JFileChooser();
@@ -374,14 +494,6 @@ public class BillViewLayer extends javax.swing.JPanel {
             }
     }//GEN-LAST:event_printPDFActionPerformed
 
-    private void rentalIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rentalIdActionPerformed
-
-    private void paymentIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentIdActionPerformed
-
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         filterTable(searchField.getText());
     }//GEN-LAST:event_searchButtonActionPerformed
@@ -389,19 +501,36 @@ public class BillViewLayer extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ADEPanel;
-    private javax.swing.JButton billAdd;
-    private javax.swing.JButton billDelete;
-    private javax.swing.JButton billEdit;
-    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField paymentAmount;
-    private javax.swing.JTextField paymentDate;
-    private javax.swing.JTextField paymentId;
     private javax.swing.JButton printPDF;
-    private javax.swing.JTextField rentalId;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchPanel;
+    private javax.swing.JLabel txtBillno;
+    private javax.swing.JLabel txtCarName;
+    private javax.swing.JLabel txtCarNo;
+    private javax.swing.JLabel txtCarRate;
+    private javax.swing.JLabel txtCustomerName;
+    private javax.swing.JLabel txtDate;
+    private javax.swing.JLabel txtRentalDate;
+    private javax.swing.JLabel txtReturnDate;
+    private javax.swing.JLabel txtTotal;
+    private javax.swing.JLabel txtTotalAmount;
+    private javax.swing.JLabel txtTotalAmount1;
     // End of variables declaration//GEN-END:variables
 }

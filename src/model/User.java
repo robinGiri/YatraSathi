@@ -41,6 +41,16 @@ public class User {
         this.subscription = subscription;
         this.isUser = isUser;
     }
+      public User(int userId, String userName, String email, String password,String address, String contact, String subscription, boolean isUser) {
+        this.userId = userId;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.contact = contact;
+        this.subscription = subscription;
+        this.isUser = isUser;
+    }
         public User(String userName, String email, String password, Date dateOfJoin, String address, String contact, String subscription, boolean isUser) {
         this.userName = userName;
         this.email = email;
