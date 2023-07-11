@@ -89,14 +89,14 @@ public class UserService implements IUserService {
         }
         return false;
     }
-
+    
     @Override
-    public boolean deleteUser(User user) {
+    public boolean deleteUser(int id) {
         connection = dbConnection.connection;
         String query = "DELETE FROM user WHERE userId = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, user.getUserId());
+            preparedStatement.setInt(1, id);
             int status = preparedStatement.executeUpdate();
             System.out.println(status);
             return true;

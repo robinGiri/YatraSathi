@@ -27,18 +27,18 @@ import javax.swing.table.TableRowSorter;
 import model.*;
 import controller.*;
 public class BillViewLayer extends javax.swing.JPanel {
+    BillController billController = new BillController();
+    Bill bill = new Bill();
+    RentalController rentalController = new RentalController();
+    Rental rental = new Rental();
+    CarController carController = new CarController();
+    UsersController usersController = new UsersController();
+    Car car = new Car();
+    User user = new User();
     int idInt;
     //Load the bills form the table and create the bill  
    private int CreateBill(int id){
-        BillController billController = new BillController();
-        Bill bill = new Bill();
         bill = billController.getBillById(id);
-        RentalController rentalController = new RentalController();
-        Rental rental = new Rental();
-        CarController carController = new CarController();
-        Car car = new Car();
-        UsersController usersController = new UsersController();
-        User user = new User();
         txtBillno.setText(String.valueOf(id));
         txtDate.setText(bill.getDate().toString());
         rental = rentalController.searchRental(id);
@@ -66,7 +66,6 @@ public class BillViewLayer extends javax.swing.JPanel {
                         // Retrieve data from the selected row
                         String id = jTable1.getValueAt(selectedRow, 0).toString();
                         idInt = Integer.parseInt(id);
-                        BillController billController = new BillController();
                         CreateBill(idInt);
                         ADEPanel.setVisible(true);
                     }    
@@ -324,25 +323,26 @@ public class BillViewLayer extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addGap(25, 25, 25)
-                            .addComponent(txtTotalAmount))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtTotalAmount1))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addGap(76, 76, 76)
-                            .addComponent(txtTotal)
-                            .addGap(105, 105, 105)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(25, 25, 25)
+                                .addComponent(txtTotalAmount))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTotalAmount1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(76, 76, 76)
+                                .addComponent(txtTotal)))
+                        .addGap(49, 49, 49))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83))))
+                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

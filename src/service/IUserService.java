@@ -8,7 +8,7 @@ public interface IUserService {
 
     public boolean updateUser(User user);
 
-    public boolean deleteUser(User user);
+    public boolean deleteUser(int id);
 
     public ArrayList<User> listUsers();
 

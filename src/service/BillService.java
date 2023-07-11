@@ -70,7 +70,7 @@ public class BillService implements IBillService {
                 bill.setRentalId(resultSet.getInt("rentalId"));
                 bill.setBillNo(resultSet.getInt("billNo"));
                 bill.setCustomerId(resultSet.getInt("customerId"));
-                bill.setDate(resultSet.getDate("billDate"));
+                bill.setDate(resultSet.getDate("date"));
 
                 return bill;
             }

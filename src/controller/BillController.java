@@ -30,5 +30,6 @@ public class BillController {
     public ArrayList<Bill> listBills() {
         return billService.listBills();
     }
+    
 
 }

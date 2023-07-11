@@ -27,6 +27,8 @@ import model.Car;
  * @author ksand
  */
 public class CarViewLayer extends javax.swing.JPanel {
+    CarController carController = new CarController();
+    Car car = new Car();
     public CarViewLayer() {
         initComponents();
         ADEPanel.setVisible(false);
@@ -88,6 +90,7 @@ public class CarViewLayer extends javax.swing.JPanel {
     }
 }   
 // print the pdf formated table 
+// <----------------------------Aakrati Delete ------------------------------------------------------------------------>
     private void generatePDF(String convertedString) {
     try {
         // Create a new PDF document
@@ -126,6 +129,8 @@ public class CarViewLayer extends javax.swing.JPanel {
         e.printStackTrace();
     }
 }
+// <------------------------------------------------------------------------------------------------------------------------>
+
 //Load the car in the table
        private void loadCar() {
         CarController carController = new CarController();
@@ -149,7 +154,6 @@ public class CarViewLayer extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        printPDF = new javax.swing.JButton();
         searchPanel = new javax.swing.JPanel();
         searchButton = new javax.swing.JButton();
         searchField = new javax.swing.JTextField();
@@ -191,14 +195,6 @@ public class CarViewLayer extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 402));
-
-        printPDF.setText("Print");
-        printPDF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printPDFActionPerformed(evt);
-            }
-        });
-        add(printPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 437, -1, -1));
 
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -351,22 +347,33 @@ public class CarViewLayer extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCarActionPerformed
-          CarController carController = new CarController();
-           carController.updateCar(Integer.parseInt(carId.getText()),carname.getText(), carbrand.getText(),Date.valueOf(carDate.getText()) , color.getText(), number.getText(), status.getText(),rate.getText(),Integer.parseInt(ownerid.getText()));
-           loadCar();
+            car.setCar_id(Integer.parseInt(carId.getText()));
+            car.setCar_name(carname.getText());
+            car.setCar_brand(carbrand.getText());
+            car.setCar_model_year(Date.valueOf(carDate.getText()));
+            car.setCar_color(color.getText());
+            car.setPlate_number(number.getText());
+            car.setRate(Integer.parseInt(rate.getText()));
+            carController.updateCar(car);
+            loadCar();
     }//GEN-LAST:event_editCarActionPerformed
 
     private void deleteCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCarActionPerformed
-        CarController carController = new CarController();
         carController.deleteCar(Integer.parseInt(carId.getText()));
         loadCar();
 
     }//GEN-LAST:event_deleteCarActionPerformed
 
     private void addCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCarActionPerformed
-           CarController carController = new CarController();
-           carController.createCar(Integer.parseInt(carId.getText()),carname.getText(), carbrand.getText(),Date.valueOf(carDate.getText()) , color.getText(), number.getText(), status.getText(),rate.getText(),Integer.parseInt(ownerid.getText()));
-           loadCar();
+            car.setCar_id(Integer.parseInt(carId.getText()));
+            car.setCar_name(carname.getText());
+            car.setCar_brand(carbrand.getText());
+            car.setCar_model_year(Date.valueOf(carDate.getText()));
+            car.setCar_color(color.getText());
+            car.setPlate_number(number.getText());
+            car.setRate(Integer.parseInt(rate.getText()));
+            carController.createCar(car);
+            loadCar();
     }//GEN-LAST:event_addCarActionPerformed
 
     private void carnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carnameActionPerformed
@@ -376,24 +383,6 @@ public class CarViewLayer extends javax.swing.JPanel {
     private void owneridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_owneridActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_owneridActionPerformed
-
-    private void printPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPDFActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        Component frame = null;
-
-        // Show the file chooser dialog
-        int result = fileChooser.showOpenDialog(frame);
-            
-            // Handle the selected folder
-            if (result == JFileChooser.APPROVE_OPTION) {
-                String selectedFolder = fileChooser.getSelectedFile().getPath();
-                String convertedString = selectedFolder.replace("\\", "\\\\");
-                generatePDF(convertedString+"\\\\carTable.pdf");
-                
-            }
-       
-    }//GEN-LAST:event_printPDFActionPerformed
 
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
 
@@ -418,7 +407,6 @@ public class CarViewLayer extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField number;
     private javax.swing.JTextField ownerid;
-    private javax.swing.JButton printPDF;
     private javax.swing.JTextField rate;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
