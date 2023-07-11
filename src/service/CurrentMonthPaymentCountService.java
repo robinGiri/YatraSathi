@@ -57,10 +57,4 @@ public class CurrentMonthPaymentCountService {
         }
     }
 
-    public static void main(String[] args) {
-        CurrentMonthPaymentCountService paymentCountService = new CurrentMonthPaymentCountService();
-        double currentMonthPaymentAmount = paymentCountService.countCurrentMonthPaymentAmount();
-        System.out.println("Payment amount for the current month: " + currentMonthPaymentAmount);
-
-    }
 }
