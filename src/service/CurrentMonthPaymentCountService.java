@@ -17,7 +17,7 @@ public class CurrentMonthPaymentCountService {
     public double countCurrentMonthPaymentAmount() {
         connection = dbConnection.connection;
         double totalAmount = 0.0;
-        
+
         LocalDate currentDate = LocalDate.now();
         YearMonth currentMonth = YearMonth.from(currentDate);
 
@@ -57,10 +57,4 @@ public class CurrentMonthPaymentCountService {
         }
     }
 
-    public static void main(String[] args) {
-        CurrentMonthPaymentCountService paymentCountService = new CurrentMonthPaymentCountService();
-        double currentMonthPaymentAmount = paymentCountService.countCurrentMonthPaymentAmount();
-        System.out.println("Payment amount for the current month: " + currentMonthPaymentAmount);
-
-    }
 }

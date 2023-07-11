@@ -1,4 +1,5 @@
 package model;
+
 import java.util.Date;
 
 public class Bill {
@@ -7,8 +8,9 @@ public class Bill {
     private int carId;
     private int rentalId;
     private int customerId;
-    public Bill(){
-        
+
+    public Bill() {
+
     }
 
     public Bill(int billNo, Date date, int carId, int rentalId, int customerId) {
@@ -18,6 +20,7 @@ public class Bill {
         this.rentalId = rentalId;
         this.customerId = customerId;
     }
+
     public Bill(Date date, int carId, int rentalId, int customerId) {
         this.date = date;
         this.carId = carId;
@@ -40,7 +43,7 @@ public class Bill {
     public void setDate(Date date) {
         this.date = date;
     }
-  
+
     public int getCarId() {
         return carId;
     }
@@ -56,11 +59,12 @@ public class Bill {
     public void setRentalId(int rentalId) {
         this.rentalId = rentalId;
     }
-     public int getCustomerId() {
+
+    public int getCustomerId() {
         return customerId;
     }
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
-    }   
+    }
 }

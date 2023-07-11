@@ -49,13 +49,5 @@ public class CarCountService {
             System.out.println("Error while closing resources: " + e.getMessage());
         }
     }
-    public static void main(String[] args) {
-    CarCountService carCountService = new CarCountService();
-    int numberOfAvailableCars = carCountService.countAvailableCars();
-    System.out.println("Number of available cars: " + numberOfAvailableCars);
-
- 
-}
 
 }
-

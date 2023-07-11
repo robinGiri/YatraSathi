@@ -50,11 +50,4 @@ public class PaymentCountService {
         }
     }
 
-    public static void main(String[] args) {
-        PaymentCountService paymentCountService = new PaymentCountService();
-        double totalPaymentAmount = paymentCountService.countTotalPaymentAmount();
-        System.out.println("Total payment amount: " + totalPaymentAmount);
-
-    }
-    
 }

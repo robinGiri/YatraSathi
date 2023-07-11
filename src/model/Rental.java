@@ -4,18 +4,18 @@ import java.sql.Date;
 
 public class Rental {
 
-   
     private int rental_id;
-    private Date rental_datetime;   
+    private Date rental_datetime;
     private Date return_datetime;
     private int car_id;
     private int customer_id;
     private String pickup;
     private String dropoff;
 
-    public Rental(int rental_id, Date rental_datetime,Date return_datetime, int car_id, int customer_id, String pickup, String dropoff) {
+    public Rental(int rental_id, Date rental_datetime, Date return_datetime, int car_id, int customer_id, String pickup,
+            String dropoff) {
         this.rental_id = rental_id;
-        this.return_datetime= return_datetime;
+        this.return_datetime = return_datetime;
         this.rental_datetime = rental_datetime;
         this.car_id = car_id;
         this.customer_id = customer_id;
@@ -74,7 +74,7 @@ public class Rental {
     public void setDropoff(String dropoff) {
         this.dropoff = dropoff;
     }
-    
+
     public Date getReturn_datetime() {
         return return_datetime;
     }

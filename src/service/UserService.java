@@ -6,7 +6,7 @@ import model.User;
 import java.util.*;
 import java.sql.Date;
 
-public class UserService implements  IUserService{
+public class UserService implements IUserService {
     private PreparedStatement preparedStatement;
     private Connection connection;
     private ResultSet resultSet;
@@ -41,7 +41,8 @@ public class UserService implements  IUserService{
     public boolean createUser(User user) {
         checkTableUser();
         connection = dbConnection.connection;
-        String query = "INSERT INTO user( userName, email, password,dateOfJoin, address, contact, subscription,isUser) " +
+        String query = "INSERT INTO user( userName, email, password,dateOfJoin, address, contact, subscription,isUser) "
+                +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -62,6 +63,7 @@ public class UserService implements  IUserService{
         }
         return false;
     }
+
     @Override
     public boolean updateUser(User user) {
         connection = dbConnection.connection;
@@ -76,7 +78,7 @@ public class UserService implements  IUserService{
             preparedStatement.setString(5, user.getContact());
             preparedStatement.setString(6, user.getSubscription());
             preparedStatement.setBoolean(7, user.getisUser());
-            preparedStatement.setInt(8,user.getUserId());
+            preparedStatement.setInt(8, user.getUserId());
 
             int status = preparedStatement.executeUpdate();
             System.out.println(status);
@@ -87,6 +89,7 @@ public class UserService implements  IUserService{
         }
         return false;
     }
+
     @Override
     public boolean deleteUser(User user) {
         connection = dbConnection.connection;
@@ -103,6 +106,7 @@ public class UserService implements  IUserService{
         }
         return false;
     }
+
     @Override
     public ArrayList<User> listUsers() {
         ArrayList<User> userList = new ArrayList<User>();
@@ -121,7 +125,8 @@ public class UserService implements  IUserService{
                 String contact = resultSet.getString("contact");
                 String subscription = resultSet.getString("subscription");
                 boolean isUser = resultSet.getBoolean("isUser");
-                User user = new User(userId,userName,email, password, dateOfJoin, address, contact, subscription, isUser);
+                User user = new User(userId, userName, email, password, dateOfJoin, address, contact, subscription,
+                        isUser);
                 userList.add(user);
             }
 
@@ -130,6 +135,7 @@ public class UserService implements  IUserService{
         }
         return userList;
     }
+
     @Override
     public User selectUserID(int userId) {
         connection = dbConnection.connection;
@@ -156,10 +162,6 @@ public class UserService implements  IUserService{
             System.out.println(e.getMessage());
         }
         return null;
-        
     }
-    public static void main(String[] args) {
-        UserService userService = new UserService();
-        userService.checkTableUser();
-    }
+
 }

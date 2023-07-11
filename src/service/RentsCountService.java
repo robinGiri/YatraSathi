@@ -30,7 +30,6 @@ public class RentsCountService {
         } finally {
             closeResources();
         }
-
         return count;
     }
 
@@ -50,10 +49,4 @@ public class RentsCountService {
         }
     }
 
-    public static void main(String[] args) {
-        RentsCountService carRentalCountService = new RentsCountService();
-        int numberOfRentedCars = carRentalCountService.countRentedCars();
-        System.out.println("Number of rented cars: " + numberOfRentedCars);
-    }
 }
-

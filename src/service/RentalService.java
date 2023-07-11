@@ -5,7 +5,6 @@ import database.DbConnection;
 import model.Rental;
 import java.util.ArrayList;
 
-
 public class RentalService implements IRentalService {
     private PreparedStatement preparedStatement;
     private Connection connection;
@@ -59,6 +58,7 @@ public class RentalService implements IRentalService {
         }
         return false;
     }
+
     public Rental getRentalById(int rentalId) {
         connection = dbConnection.connection;
         String query = "SELECT * FROM rental WHERE rentalId = ?";
@@ -85,8 +85,6 @@ public class RentalService implements IRentalService {
         }
         return null;
     }
-
-            
 
     public boolean updateRental(Rental rental) {
         connection = dbConnection.connection;
@@ -141,7 +139,8 @@ public class RentalService implements IRentalService {
                 String pickup = resultSet.getString("pickup");
                 String dropoff = resultSet.getString("dropOff");
 
-                Rental rental = new Rental(rentalId, rentalDateTime, returnDateTime, carId,customerId, pickup, dropoff);
+                Rental rental = new Rental(rentalId, rentalDateTime, returnDateTime, carId, customerId, pickup,
+                        dropoff);
                 rentalsList.add(rental);
             }
 
@@ -150,8 +149,5 @@ public class RentalService implements IRentalService {
         }
         return rentalsList;
     }
-        public static void main(String[] args) {
-        RentalService rentalService = new RentalService();
-}
-        
+
 }
