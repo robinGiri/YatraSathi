@@ -1,14 +1,12 @@
 package service;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import database.DbConnection;
-import java.util.Random;
-import jdk.jfr.Timestamp;
 import model.Bill;
 
 public class BillService implements IBillService {
@@ -17,7 +15,7 @@ public class BillService implements IBillService {
     private ResultSet resultSet;
     private DbConnection dbConnection = new DbConnection();
 
-     private boolean checkTableBill() {
+    private boolean checkTableBill() {
         connection = dbConnection.connection;
         String query = "CREATE TABLE IF NOT EXISTS bill (" +
                 "billNo INT PRIMARY KEY, " +
@@ -36,7 +34,7 @@ public class BillService implements IBillService {
         return false;
     }
 
- // Create a bill
+    // Create a bill
     public boolean createBill(Bill bill) {
         checkTableBill();
         connection = dbConnection.connection;
@@ -57,31 +55,32 @@ public class BillService implements IBillService {
         }
         return false;
     }
+
     public Bill getBillById(int billno) {
-    connection = dbConnection.connection;
-    String query = "SELECT * FROM bill WHERE billno= ?";
-    try {
-        preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, billno);
+        connection = dbConnection.connection;
+        String query = "SELECT * FROM bill WHERE billno= ?";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, billno);
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-        if (resultSet.next()) {
-            Bill bill = new Bill();
-            bill.setRentalId(resultSet.getInt("rentalId"));
-            bill.setBillNo(resultSet.getInt("billNo"));
-            bill.setCustomerId(resultSet.getInt("customerId"));
-            bill.setDate(resultSet.getDate("billDate"));
+            if (resultSet.next()) {
+                Bill bill = new Bill();
+                bill.setRentalId(resultSet.getInt("rentalId"));
+                bill.setBillNo(resultSet.getInt("billNo"));
+                bill.setCustomerId(resultSet.getInt("customerId"));
+                bill.setDate(resultSet.getDate("billDate"));
 
-            return bill;
+                return bill;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
+        return null;
     }
-    return null;
-}
 
-  public boolean updateBill(Bill bill) {
+    public boolean updateBill(Bill bill) {
         connection = dbConnection.connection;
         String query = "UPDATE bill SET date = ?, carId = ?, rentalId = ?, customerId = ? WHERE billNo = ?";
         try {
@@ -99,7 +98,8 @@ public class BillService implements IBillService {
         }
         return false;
     }
-   public boolean deleteBill(int billNo) {
+
+    public boolean deleteBill(int billNo) {
         connection = dbConnection.connection;
         String query = "DELETE FROM bill WHERE billNo = ?";
         try {
@@ -113,7 +113,8 @@ public class BillService implements IBillService {
         }
         return false;
     }
-      public ArrayList<Bill> listBills() {
+
+    public ArrayList<Bill> listBills() {
         ArrayList<Bill> billsList = new ArrayList<Bill>();
         connection = dbConnection.connection;
         String query = "SELECT * FROM bill";
@@ -135,28 +136,5 @@ public class BillService implements IBillService {
         }
         return billsList;
     }
-          public static void main(String[] args) {
-        BillService billService = new BillService();
-        billService.checkTableBill();
-
-        // Create 10 dummy data entries
-        for (int i = 1; i <= 10; i++) {
-            int billNo = i;
-            Date date = new Date(); // Use the current date as the dummy date
-            int carId = i; // Use the same value as billNo for simplicity
-            int rentalId = i; // Use the same value as billNo for simplicity
-            int customerId = i; // Use the same value as billNo for simplicity
-
-            Bill bill = new Bill(billNo, date, carId, rentalId, customerId);
-            boolean created = billService.createBill(bill);
-
-            if (created) {
-                System.out.println("Dummy data entry created: " + bill);
-            } else {
-                System.out.println("Failed to create dummy data entry: " + bill);
-            }
-        }
-    }
-
 
 }

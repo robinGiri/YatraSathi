@@ -56,4 +56,3 @@ public class RentsCountService {
         System.out.println("Number of rented cars: " + numberOfRentedCars);
     }
 }
-

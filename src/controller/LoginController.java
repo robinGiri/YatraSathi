@@ -12,16 +12,14 @@ public class LoginController {
     private PreparedStatement preparedStatement;
 
     public boolean login(String username, String password) {
-        System.out.println(username);
-        System.out.println(password);
         connection = dbConnection.connection;
-        String query = "SELECT password FROM user WHERE userName = ?";        
+        String query = "SELECT password FROM user WHERE userName = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                if(resultSet.getString("password").equals(password)){
+            while (resultSet.next()) {
+                if (resultSet.getString("password").equals(password)) {
                     return true;
                 }
             }

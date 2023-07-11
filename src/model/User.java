@@ -30,44 +30,47 @@ public class User {
         this.isUser = isUser;
     }
 
-    public User(int userId, String userName, String email, String password, Date dateOfJoin, String address, String contact, String subscription, boolean isUser) {
-        this.userId = userId;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.dateOfJoin = dateOfJoin;
-        this.address = address;
-        this.contact = contact;
-        this.subscription = subscription;
-        this.isUser = isUser;
-    }
-      public User(int userId, String userName, String email, String password,String address, String contact, String subscription, boolean isUser) {
-        this.userId = userId;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.address = address;
-        this.contact = contact;
-        this.subscription = subscription;
-        this.isUser = isUser;
-    }
-        public User(String userName, String email, String password, Date dateOfJoin, String address, String contact, String subscription, boolean isUser) {
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.dateOfJoin = dateOfJoin;
-        this.address = address;
-        this.contact = contact;
-        this.subscription = subscription;
-        this.isUser = isUser;
-    }
-    public Date getDateOfJoin() {
-        return dateOfJoin;
+    public User() {
     }
 
-    public void setDateOfJoin(Date dateOfJoin) {
+    public User(int userId, String userName, String email, String password, Date dateOfJoin, String address,
+            String contact, String subscription, boolean isUser) {
+        this.userId = userId;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
         this.dateOfJoin = dateOfJoin;
+        this.address = address;
+        this.contact = contact;
+        this.subscription = subscription;
+        this.isUser = isUser;
     }
+
+    public User(int userId, String userName, String email, String password, String address, String contact,
+            String subscription, boolean isUser) {
+        this.userId = userId;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.contact = contact;
+        this.subscription = subscription;
+        this.isUser = isUser;
+    }
+
+    public User(String userName, String email, String password, Date dateOfJoin, String address, String contact,
+            String subscription, boolean isUser) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.dateOfJoin = dateOfJoin;
+        this.address = address;
+        this.contact = contact;
+        this.subscription = subscription;
+        this.isUser = isUser;
+    }
+
+
     public User(String name, String email, String password, boolean isAdmin) {
         this.userName = name;
         this.email = email;
@@ -75,7 +78,12 @@ public class User {
         this.isUser = isAdmin;
     }
 
-    public User() {
+    public Date getDateOfJoin() {
+        return dateOfJoin;
+    }
+
+    public void setDateOfJoin(Date dateOfJoin) {
+        this.dateOfJoin = dateOfJoin;
     }
 
     public String getEmail() {
@@ -133,7 +141,7 @@ public class User {
     public void setSubscription(String subscription) {
         this.subscription = subscription;
     }
-    
+
     public boolean getisUser() {
         return isUser;
     }
@@ -141,7 +149,7 @@ public class User {
     public void setisUser(boolean isUser) {
         this.isUser = isUser;
     }
-    
+
     public boolean getdateOfJoin() {
         return isUser;
     }

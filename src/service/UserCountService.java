@@ -30,4 +30,3 @@ public class UserCountService {
         System.out.println("Total user count: " + userCount);
     }
 }
-

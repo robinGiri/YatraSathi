@@ -1,7 +1,6 @@
 package controller;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import service.BillService;
 import model.Bill;
 
@@ -32,7 +31,4 @@ public class BillController {
         return billService.listBills();
     }
 
-
 }
-
-

@@ -17,7 +17,7 @@ public class CurrentMonthPaymentCountService {
     public double countCurrentMonthPaymentAmount() {
         connection = dbConnection.connection;
         double totalAmount = 0.0;
-        
+
         LocalDate currentDate = LocalDate.now();
         YearMonth currentMonth = YearMonth.from(currentDate);
 

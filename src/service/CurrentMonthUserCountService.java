@@ -17,7 +17,7 @@ public class CurrentMonthUserCountService {
     public int countCurrentMonthUser() {
         connection = dbConnection.connection;
         int userCount = 0;
-        
+
         LocalDate currentDate = LocalDate.now();
         YearMonth currentMonth = YearMonth.from(currentDate);
 
@@ -63,4 +63,3 @@ public class CurrentMonthUserCountService {
         System.out.println("Number of users who joined this month: " + currentMonthUserCount);
     }
 }
-

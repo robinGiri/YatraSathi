@@ -63,7 +63,8 @@ public class CarService implements ICarService {
         }
         return false;
     }
-        public Car getCarById(int carId) {
+
+    public Car getCarById(int carId) {
         connection = dbConnection.connection;
         String query = "SELECT * FROM car WHERE carId = ?";
         try {
@@ -132,9 +133,10 @@ public class CarService implements ICarService {
         }
         return false;
     }
-     @Override
-    public ArrayList<Car> showAvailableCars(){
-         ArrayList<Car> carsList = new ArrayList<Car>();
+
+    @Override
+    public ArrayList<Car> showAvailableCars() {
+        ArrayList<Car> carsList = new ArrayList<Car>();
         connection = dbConnection.connection;
         String query = "SELECT * FROM car where carStatus ='Available'";
         try {
@@ -160,7 +162,7 @@ public class CarService implements ICarService {
             System.out.println(e.getMessage());
         }
         return carsList;
-        
+
     }
 
     public ArrayList<Car> listCars() {
@@ -191,19 +193,18 @@ public class CarService implements ICarService {
         }
         return carsList;
     }
-   
+
     public static void main(String[] args) {
-    CarService carService = new CarService();
+        CarService carService = new CarService();
 
-    
-    Car car1 = new Car(1, "Toyota Camry", "Toyota", new java.sql.Date(System.currentTimeMillis()),
-            "Silver", "ABC123", "Available", "car1.jpg", 50);
-    Car car2 = new Car(2, "Honda Civic", "Honda", new java.sql.Date(System.currentTimeMillis()),
-            "Red", "XYZ789", "Not Available", "car2.jpg", 60);
+        Car car1 = new Car(1, "Toyota Camry", "Toyota", new java.sql.Date(System.currentTimeMillis()),
+                "Silver", "ABC123", "Available", "car1.jpg", 50);
+        Car car2 = new Car(2, "Honda Civic", "Honda", new java.sql.Date(System.currentTimeMillis()),
+                "Red", "XYZ789", "Not Available", "car2.jpg", 60);
 
-//    carService.createCar(car1);
-//    carService.createCar(car2);
-    carService.showAvailableCars();
-}
-    
+        // carService.createCar(car1);
+        // carService.createCar(car2);
+        carService.showAvailableCars();
+    }
+
 }

@@ -10,21 +10,22 @@ public class UsersController {
 
     // Create a new user
     public boolean createUser(String username, String email, String password, boolean isAdmin) {
-        User user = new User(username, email, password,isAdmin);
+        User user = new User(username, email, password, isAdmin);
         return userServices.createUser(user);
     }
-    
-    //Create a new user
-     public boolean createUser(int userId, String userName, String email, String password,Date dateOfJoin, String address, String contact, String subscription, boolean isUser) {
+
+    // Create a new user
+    public boolean createUser(int userId, String userName, String email, String password, Date dateOfJoin,
+            String address, String contact, String subscription, boolean isUser) {
         User user = new User(userName, email, password, dateOfJoin, address, contact, subscription, isUser);
         return userServices.createUser(user);
     }
 
     // Update an existing user
-    public boolean updateUser(int userId, String userName, String email, String password,String address,
+    public boolean updateUser(int userId, String userName, String email, String password, String address,
             String contact,
-            String subscription,boolean isUser) {
-            User user = new User(userId, userName, email, contact, address, contact, subscription, isUser);
+            String subscription, boolean isUser) {
+        User user = new User(userId, userName, email, contact, address, contact, subscription, isUser);
         return userServices.updateUser(user);
     }
 
@@ -32,15 +33,16 @@ public class UsersController {
     public boolean deleteUser(int userId) {
         User user = new User();
         user.setUserId(userId);
-        return userServices.deleteUser(user); 
+        return userServices.deleteUser(user);
     }
 
     // Show a list of users
     public ArrayList<User> showUserList() {
         ArrayList<User> users = userServices.listUsers();
-        return users;  
+        return users;
     }
-    public User getUserByID(int id){
+
+    public User getUserByID(int id) {
         User user = userServices.selectUserID(id);
         return user;
     }
@@ -51,6 +53,3 @@ public class UsersController {
         usersController.showUserList();
     }
 }
-
-   
-

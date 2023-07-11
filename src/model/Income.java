@@ -1,4 +1,5 @@
 package model;
+
 public class Income {
 
     public Income(int rental_year, int rental_month, double total_income) {
@@ -6,7 +7,9 @@ public class Income {
         this.rental_month = rental_month;
         this.total_income = total_income;
     }
-      public Income() {
+
+    public Income() {
+
     }
 
     public int getRental_year() {
@@ -32,8 +35,9 @@ public class Income {
     public void setTotal_income(double total_income) {
         this.total_income = total_income;
     }
+
     int rental_year;
     int rental_month;
     double total_income;
-    
+
 }
