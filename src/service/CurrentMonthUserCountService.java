@@ -57,9 +57,4 @@ public class CurrentMonthUserCountService {
         }
     }
 
-    public static void main(String[] args) {
-        CurrentMonthUserCountService userCountService = new CurrentMonthUserCountService();
-        int currentMonthUserCount = userCountService.countCurrentMonthUser();
-        System.out.println("Number of users who joined this month: " + currentMonthUserCount);
-    }
 }

@@ -50,11 +50,4 @@ public class AutoCareService {
         }
     }
 
-    public static void main(String[] args) {
-        AutoCareService autoCareService = new AutoCareService();
-        int numberOfAvailableCars = autoCareService.countNotAvailableCars();
-        System.out.println("Number of cars in autocare: " + numberOfAvailableCars);
-
-    }
-
 }

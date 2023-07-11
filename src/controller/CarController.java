@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class CarController {
     private CarService carService = new CarService();
 
-    public void createCar(int carId, String carName, String carBrand, Date carModelYear, String carColor, String plateNumber, String carStatus, String rate,int ownerId ) {
+    public void createCar(int carId, String carName, String carBrand, Date carModelYear, String carColor,
+            String plateNumber, String carStatus, String rate, int ownerId) {
         Car car;
         car = new Car(carId, carName, carBrand, carModelYear, carColor, plateNumber, carStatus, rate, ownerId);
         boolean success = carService.createCar(car);
@@ -19,7 +20,8 @@ public class CarController {
         }
     }
 
-    public void updateCar(int carId, String carName, String carBrand, Date carModelYear, String carColor, String plateNumber, String carStatus, String rate,int ownerId) {
+    public void updateCar(int carId, String carName, String carBrand, Date carModelYear, String carColor,
+            String plateNumber, String carStatus, String rate, int ownerId) {
         Car car = new Car(carId, carName, carBrand, carModelYear, carColor, plateNumber, carStatus, rate, ownerId);
         boolean success = carService.updateCar(car);
         if (success) {
@@ -37,7 +39,8 @@ public class CarController {
             System.out.println("Failed to delete car.");
         }
     }
-    public Car searchCar(int carId){
+
+    public Car searchCar(int carId) {
         Car DetailCar = carService.getCarById(carId);
         return DetailCar;
     }
@@ -50,9 +53,9 @@ public class CarController {
             return carsList;
         }
     }
-    
-    public ArrayList<Car> showAvailableCar(){
-       ArrayList<Car> carsList = carService.showAvailableCars();
-       return carsList;
+
+    public ArrayList<Car> showAvailableCar() {
+        ArrayList<Car> carsList = carService.showAvailableCars();
+        return carsList;
     }
 }

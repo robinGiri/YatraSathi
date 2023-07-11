@@ -23,10 +23,4 @@ public class UserCountService {
         }
         return 0;
     }
-
-    public static void main(String[] args) {
-        UserCountService userCountService = new UserCountService();
-        int userCount = userCountService.getUserCount();
-        System.out.println("Total user count: " + userCount);
-    }
 }

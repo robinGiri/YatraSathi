@@ -50,9 +50,4 @@ public class RentInPendingService {
         }
     }
 
-    public static void main(String[] args) {
-        RentInPendingService rentInPendingService = new RentInPendingService();
-        int numberOfRentsPending = rentInPendingService.countRentalsInPending();
-        System.out.println("Number of rentals in pending status: " + numberOfRentsPending);
-    }
 }

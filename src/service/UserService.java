@@ -162,11 +162,6 @@ public class UserService implements IUserService {
             System.out.println(e.getMessage());
         }
         return null;
-
     }
 
-    public static void main(String[] args) {
-        UserService userService = new UserService();
-        userService.checkTableUser();
-    }
 }
