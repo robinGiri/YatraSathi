@@ -5,8 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import database.DbConnection;
+import java.time.LocalDate;
 import model.Bill;
 
 public class BillService implements IBillService {
@@ -17,12 +18,16 @@ public class BillService implements IBillService {
 
     private boolean checkTableBill() {
         connection = dbConnection.connection;
-        String query = "CREATE TABLE IF NOT EXISTS bill (" +
-                "billNo INT PRIMARY KEY, " +
-                "date DATE, " +
-                "carId INT, " +
-                "rentalId INT, " +
-                "customerId INT)";
+        String query = "CREATE TABLE IF NOT EXISTS bill ("
+                        +"billNo INT PRIMARY KEY auto_increment,"
+                        +"date DATE,"
+                        +"carId INT,"
+                        +"rentalId INT,"
+                        +"customerId INT,"
+                        +"FOREIGN KEY (carId) REFERENCES car(carId),"
+                        +"FOREIGN KEY (rentalId) REFERENCES rental(rentalId)," 
+                        +"FOREIGN KEY (customerId) REFERENCES clients(customerId))";
+                                                       
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.execute();
@@ -38,14 +43,13 @@ public class BillService implements IBillService {
     public boolean createBill(Bill bill) {
         checkTableBill();
         connection = dbConnection.connection;
-        String query = "INSERT INTO bill(billNo, date, carId, rentalId, customerId) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO bill(date, carId, rentalId, customerId) VALUES (?, ?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, bill.getBillNo());
-            preparedStatement.setDate(2, new java.sql.Date(bill.getDate().getTime()));
-            preparedStatement.setInt(3, bill.getCarId());
-            preparedStatement.setInt(4, bill.getRentalId());
-            preparedStatement.setInt(5, bill.getCustomerId());
+            preparedStatement.setDate(1, bill.getDate());
+            preparedStatement.setInt(2, bill.getCarId());
+            preparedStatement.setInt(3, bill.getRentalId());
+            preparedStatement.setInt(4, bill.getCustomerId());
 
             int status = preparedStatement.executeUpdate();
             return (status > 0);
@@ -70,7 +74,7 @@ public class BillService implements IBillService {
                 bill.setRentalId(resultSet.getInt("rentalId"));
                 bill.setBillNo(resultSet.getInt("billNo"));
                 bill.setCustomerId(resultSet.getInt("customerId"));
-                bill.setDate(resultSet.getDate("billDate"));
+                bill.setDate(resultSet.getDate("date"));
 
                 return bill;
             }
@@ -136,5 +140,4 @@ public class BillService implements IBillService {
         }
         return billsList;
     }
-
 }

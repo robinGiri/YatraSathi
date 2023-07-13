@@ -31,6 +31,7 @@ import java.time.LocalDate;
 
 public class ClientViewLayer extends javax.swing.JPanel {
     UsersController usersController = new UsersController();
+    User user = new User();
       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
       LocalDate now = LocalDate.now();
       
@@ -384,7 +385,7 @@ public class ClientViewLayer extends javax.swing.JPanel {
         addLayout.setVerticalGroup(
             addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -407,7 +408,7 @@ public class ClientViewLayer extends javax.swing.JPanel {
                     .addComponent(addUser)
                     .addComponent(deleteUser)
                     .addComponent(editUser))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         searchButton.setText("Search");
@@ -431,11 +432,10 @@ public class ClientViewLayer extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(searchButton)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -443,14 +443,14 @@ public class ClientViewLayer extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(581, Short.MAX_VALUE)
+                .addContainerGap(575, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62))
+                        .addGap(68, 68, 68))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87))))
+                        .addGap(114, 114, 114))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -464,18 +464,18 @@ public class ClientViewLayer extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(152, Short.MAX_VALUE)
-                .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(132, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(208, 208, 208))
+                .addGap(94, 94, 94)
+                .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(252, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(18, 18, 18)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(188, 188, 188)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -484,14 +484,17 @@ public class ClientViewLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_isAdminActionPerformed
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
-        UsersController userController = new UsersController();
-      
-        userController.createUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Date.valueOf(now), Address.getText(),contact.getText(),subscription.getSelectedItem().toString(),Boolean.TRUE);
-    
-loadClient();
-   
-
-
+    user.setUserId(Integer.parseInt(userid.getText()));
+    user.setUserName(username.getText());
+    user.setEmail(email.getText());
+    user.setPassword(password.getText());
+    user.setDateOfJoin(Date.valueOf(now));
+    user.setAddress(Address.getText());
+    user.setContact(contact.getText());
+    user.setSubscription(subscription.getSelectedItem().toString());
+    user.setIsUser(isAdmin.isSelected());
+    usersController.createUser(user);
+    loadClient();
     }//GEN-LAST:event_addUserActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -503,8 +506,7 @@ loadClient();
     }//GEN-LAST:event_contactActionPerformed
 
     private void deleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserActionPerformed
-        UsersController userController = new UsersController();
-        userController.deleteUser(Integer.parseInt(userid.getText()));
+        usersController.deleteUser(Integer.parseInt(userid.getText()));
         loadClient();
     }//GEN-LAST:event_deleteUserActionPerformed
 
@@ -513,9 +515,15 @@ loadClient();
     }//GEN-LAST:event_dateofjoinActionPerformed
 
     private void editUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserActionPerformed
-        UsersController userController = new UsersController();
-//        System.out.println(subscription.getSelectedItem().toString());
-        userController.updateUser(Integer.parseInt(userid.getText()),username.getText(), email.getText(), password.getText(),Address.getText(),contact.getText(),subscription.getSelectedItem().toString(),Boolean.getBoolean(isAdmin.getText()));
+        user.setUserId(Integer.parseInt(userid.getText()));
+        user.setUserName(username.getText());
+        user.setEmail(email.getText());
+        user.setPassword(password.getText());
+        user.setAddress(Address.getText());
+        user.setContact(contact.getText());
+        user.setSubscription(subscription.getSelectedItem().toString());
+        user.setisUser(Boolean.getBoolean(isAdmin.getText()));
+        usersController.updateUser(user);
     
 loadClient();
     }//GEN-LAST:event_editUserActionPerformed
