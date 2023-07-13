@@ -4,7 +4,6 @@
  */
 package view.layers;
 import controller.RentalController;
-import controller.BillController;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -19,13 +18,13 @@ import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.JFileChooser;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.Rental;
+import model.*;
+import controller.*;
 /**
  *
  * @author ksand
@@ -35,7 +34,7 @@ public class RentViewLayer extends javax.swing.JPanel {
     Rental rental = new Rental();
     public RentViewLayer() {
         initComponents();
-        ADEPanel.setVisible(false);
+        ADEPanel.setVisible(true);
         loadRental();
         
         // This line will see if the user is touching the list of table and load the data of the selected row in the fields;
@@ -479,6 +478,8 @@ public class RentViewLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteRentActionPerformed
 
     private void addRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRentActionPerformed
+        Bill bill = new Bill();
+        
         rental.setCar_id(Integer.parseInt(rentalId.getText()));
         rental.setReturn_datetime(Date.valueOf(returnDate.getText()));
         rental.setRental_datetime(Date.valueOf(rentalDate.getText()));
@@ -487,6 +488,12 @@ public class RentViewLayer extends javax.swing.JPanel {
         rental.setPickup(pickup.getText());
         rental.setDropoff(dropoff.getText());
         rentalController.createRental(rental);
+        bill.setDate(Date.valueOf("2023-07-14"));
+        bill.setCarId(Integer.parseInt(carId.getText()));
+        bill.setCustomerId(Integer.parseInt(customerId.getText()));
+        bill.setRentalId(1);
+        BillController billController = new BillController();
+        billController.createBill(bill);
         loadRental();
     }//GEN-LAST:event_addRentActionPerformed
 

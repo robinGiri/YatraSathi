@@ -15,9 +15,9 @@ public class RentalService implements IRentalService {
     public boolean checkTableRental() {
         connection = dbConnection.connection;
         String query = "CREATE TABLE IF NOT EXISTS rental (" +
-                "rentalId INT PRIMARY KEY, " +
+                "rentalId INT PRIMARY KEY auto_increment, " +
                 "rentalDateTime DATE, " +
-                "returnDateTime DATE" +
+                "returnDateTime DATE," +
                 "carId INT, " +
                 "customerId INT, " +
                 "pickup VARCHAR(50), " +
@@ -37,18 +37,17 @@ public class RentalService implements IRentalService {
     public boolean createRental(Rental rental) {
         checkTableRental();
         connection = dbConnection.connection;
-        String query = "INSERT INTO rental(rentalId, rentalDateTime,returnDateTime,carId, " +
-                "categoryId, customerId, pickup, dropOff) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO rental(rentalDateTime,returnDateTime,carId, " +
+                "customerId, pickup, dropOff) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, rental.getRental_id());
-            preparedStatement.setDate(2, rental.getRental_datetime());
-            preparedStatement.setDate(4, rental.getReturn_datetime());
-            preparedStatement.setInt(5, rental.getCar_id());
-            preparedStatement.setInt(6, rental.getCustomer_id());
-            preparedStatement.setString(7, rental.getPickup());
-            preparedStatement.setString(8, rental.getDropoff());
+            preparedStatement.setDate(1, rental.getRental_datetime());
+            preparedStatement.setDate(2, rental.getReturn_datetime());
+            preparedStatement.setInt(3, rental.getCar_id());
+            preparedStatement.setInt(4, rental.getCustomer_id());
+            preparedStatement.setString(5, rental.getPickup());
+            preparedStatement.setString(6, rental.getDropoff());
 
             int status = preparedStatement.executeUpdate();
             return (status > 0);
@@ -125,22 +124,21 @@ public class RentalService implements IRentalService {
 
     public ArrayList<Rental> listRentals() {
         ArrayList<Rental> rentalsList = new ArrayList<>();
+        Rental rental = new Rental();
+
         connection = dbConnection.connection;
         String query = "SELECT * FROM rental";
         try {
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                int rentalId = resultSet.getInt("rentalId");
-                Date rentalDateTime = resultSet.getDate("rentalDateTime");
-                Date returnDateTime = resultSet.getDate("returnDateTime");
-                int carId = resultSet.getInt("carId");
-                int customerId = resultSet.getInt("customerId");
-                String pickup = resultSet.getString("pickup");
-                String dropoff = resultSet.getString("dropOff");
-
-                Rental rental = new Rental(rentalId, rentalDateTime, returnDateTime, carId, customerId, pickup,
-                        dropoff);
+                rental.setRental_id(resultSet.getInt("rentalId")); 
+                rental.setRental_datetime(resultSet.getDate("rentalDateTime"));
+                rental.setReturn_datetime(resultSet.getDate("returnDateTime")); 
+                rental.setCar_id(resultSet.getInt("carId"));
+                rental.setCustomer_id(resultSet.getInt("customerId"));
+                rental.setPickup(resultSet.getString("pickup"));
+                rental.setDropoff(resultSet.getString("dropOff"));
                 rentalsList.add(rental);
             }
 
@@ -149,5 +147,8 @@ public class RentalService implements IRentalService {
         }
         return rentalsList;
     }
-
+    public static void main(String[] args) {
+        RentalService rentalService = new RentalService();
+        rentalService.listRentals();
+    }
 }

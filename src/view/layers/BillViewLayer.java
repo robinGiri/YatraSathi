@@ -194,7 +194,7 @@ public class BillViewLayer extends javax.swing.JPanel {
         txtCustomerName = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
+        searchButton1 = new javax.swing.JButton();
         printPDF = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -396,10 +396,10 @@ public class BillViewLayer extends javax.swing.JPanel {
                 .addGap(18, 18, 18))
         );
 
-        searchButton.setText("Search");
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
+        searchButton1.setText("Search");
+        searchButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
+                searchButton1ActionPerformed(evt);
             }
         });
 
@@ -409,10 +409,10 @@ public class BillViewLayer extends javax.swing.JPanel {
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(searchButton1)
+                .addContainerGap())
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,8 +420,8 @@ public class BillViewLayer extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(searchButton1))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         printPDF.setText("Print");
@@ -440,13 +440,13 @@ public class BillViewLayer extends javax.swing.JPanel {
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61))
             .addGroup(ADEPanelLayout.createSequentialGroup()
+                .addGap(174, 174, 174)
+                .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(208, Short.MAX_VALUE))
+            .addGroup(ADEPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(ADEPanelLayout.createSequentialGroup()
-                .addGap(174, 174, 174)
-                .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ADEPanelLayout.setVerticalGroup(
             ADEPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,9 +455,8 @@ public class BillViewLayer extends javax.swing.JPanel {
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -500,9 +499,9 @@ public class BillViewLayer extends javax.swing.JPanel {
             }
     }//GEN-LAST:event_printPDFActionPerformed
 
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        filterTable(searchField.getText());
-    }//GEN-LAST:event_searchButtonActionPerformed
+    private void searchButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -524,7 +523,7 @@ public class BillViewLayer extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton printPDF;
-    private javax.swing.JButton searchButton;
+    private javax.swing.JButton searchButton1;
     private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JLabel txtBillno;
