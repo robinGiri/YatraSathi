@@ -106,6 +106,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="billPanel" max="32767" attributes="0"/>
+
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -116,7 +117,9 @@
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Component id="searchPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+
                   <Component id="billPanel" min="-2" max="-2" attributes="0"/>
+
                   <EmptySpace pref="24" max="32767" attributes="0"/>
                   <Component id="printPDF" min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
@@ -192,6 +195,7 @@
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtDiscountAmount" min="-2" max="-2" attributes="0"/>
+
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>

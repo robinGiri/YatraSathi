@@ -132,6 +132,7 @@ public class RentalService implements IRentalService {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Rental rental = new Rental();
+
                 rental.setRental_id(resultSet.getInt("rentalId")); 
                 rental.setRental_datetime(resultSet.getDate("rentalDateTime"));
                 rental.setReturn_datetime(resultSet.getDate("returnDateTime")); 
@@ -147,4 +148,5 @@ public class RentalService implements IRentalService {
         }
         return rentalsList;
     }
+
 }

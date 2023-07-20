@@ -468,7 +468,6 @@ public class RentViewLayer extends javax.swing.JPanel {
         rental.setPickup(pickup.getText());
         rental.setDropoff(dropoff.getText());
         rentalController.updateRental(rental);
-        
         loadRental();
 
     }//GEN-LAST:event_editRentActionPerformed

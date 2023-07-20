@@ -27,12 +27,20 @@ import javax.swing.table.TableRowSorter;
 import model.*;
 import controller.*;
 public class BillViewLayer extends javax.swing.JPanel {
+    BillController billController = new BillController();
+    Bill bill = new Bill();
+    RentalController rentalController = new RentalController();
+    Rental rental = new Rental();
+    CarController carController = new CarController();
+    UsersController usersController = new UsersController();
+    Car car = new Car();
+    User user = new User();
     int idInt;
     //Load the bills form the table and create the bill  
    private int CreateBill(int id){
         BillDetailsController billDetailsController = new BillDetailsController();
         BillDetails billDetails = new BillDetails();
-        billDetails = billDetailsController.getBillDetailsByBillNumber(id);        
+        billDetails = billDetailsController.getBillDetailsByBillNumber(id);       
         txtBillno.setText(String.valueOf(id));
         txtDate.setText(billDetails.getBillDate().toString());
         txtCustomerName.setText(billDetails.getCustomerName());
@@ -347,6 +355,7 @@ private PdfPTable billPanelToPdf() {
                                 .addComponent(txtTotal)))
                         .addGap(49, 49, 49))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billPanelLayout.createSequentialGroup()
+
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
