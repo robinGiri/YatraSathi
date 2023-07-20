@@ -1,8 +1,9 @@
 package controller;
 
 import service.HomeService;
-import model.Income;
+//import model.Income;
 import java.util.ArrayList;
+import model.MonthlyIncome;
 
 public class HomeController {
     HomeService homeService;
@@ -11,8 +12,8 @@ public class HomeController {
         homeService = new HomeService();
     }
 
-    public ArrayList<Income> showIncomeData() {
-        ArrayList<Income> incomeList = homeService.calculateTotalIncome();
-        return incomeList;
+    public ArrayList<MonthlyIncome> showIncomeData() {
+        ArrayList<MonthlyIncome> incomeList = homeService.calculateTotalIncome();
+       return incomeList;
     }
 }

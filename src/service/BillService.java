@@ -131,8 +131,12 @@ public class BillService implements IBillService {
                 int carId = resultSet.getInt("carId");
                 int rentalId = resultSet.getInt("rentalId");
                 int customerId = resultSet.getInt("customerId");
-
-                Bill bill = new Bill(billNo, date, carId, rentalId, customerId);
+                Bill bill = new Bill();
+                bill.setBillNo(billNo);
+                bill.setDate(date);
+                bill.setCarId(carId);
+                bill.setCustomerId(customerId);
+                bill.setRentalId(rentalId);
                 billsList.add(bill);
             }
         } catch (SQLException e) {
@@ -140,4 +144,11 @@ public class BillService implements IBillService {
         }
         return billsList;
     }
+    public void printList(){
+        for (Bill bill : listBills()){
+            System.out.println(bill.getBillNo());
+        }
+    }
+
+
 }

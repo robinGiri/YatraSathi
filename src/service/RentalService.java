@@ -124,7 +124,6 @@ public class RentalService implements IRentalService {
 
     public ArrayList<Rental> listRentals() {
         ArrayList<Rental> rentalsList = new ArrayList<>();
-        Rental rental = new Rental();
 
         connection = dbConnection.connection;
         String query = "SELECT * FROM rental";
@@ -132,6 +131,8 @@ public class RentalService implements IRentalService {
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
+                Rental rental = new Rental();
+
                 rental.setRental_id(resultSet.getInt("rentalId")); 
                 rental.setRental_datetime(resultSet.getDate("rentalDateTime"));
                 rental.setReturn_datetime(resultSet.getDate("returnDateTime")); 
@@ -147,8 +148,5 @@ public class RentalService implements IRentalService {
         }
         return rentalsList;
     }
-    public static void main(String[] args) {
-        RentalService rentalService = new RentalService();
-        rentalService.listRentals();
-    }
+
 }
