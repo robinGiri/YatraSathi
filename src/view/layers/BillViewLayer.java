@@ -27,31 +27,23 @@ import javax.swing.table.TableRowSorter;
 import model.*;
 import controller.*;
 public class BillViewLayer extends javax.swing.JPanel {
-    BillController billController = new BillController();
-    Bill bill = new Bill();
-    RentalController rentalController = new RentalController();
-    Rental rental = new Rental();
-    CarController carController = new CarController();
-    UsersController usersController = new UsersController();
-    Car car = new Car();
-    User user = new User();
     int idInt;
     //Load the bills form the table and create the bill  
    private int CreateBill(int id){
-        bill = billController.getBillById(id);
+        BillDetailsController billDetailsController = new BillDetailsController();
+        BillDetails billDetails = new BillDetails();
+        billDetails = billDetailsController.getBillDetailsByBillNumber(id);        
         txtBillno.setText(String.valueOf(id));
-        txtDate.setText(bill.getDate().toString());
-        rental = rentalController.searchRental(id);
-        int carId = rental.getCar_id();
-        int userId = rental.getCustomer_id();
-        car = carController.searchCar(carId);
-        user = usersController.getUserByID(userId);
-        txtCustomerName.setText(user.getUserName());
-        txtCarName.setText(car.getCar_name());
-        txtCarNo.setText(car.getPlate_number());
-        txtCarRate.setText(String.valueOf(car.getRate()));
-        txtRentalDate.setText(rental.getRental_datetime().toString());
-        txtReturnDate.setText(rental.getReturn_datetime().toString());
+        txtDate.setText(billDetails.getBillDate().toString());
+        txtCustomerName.setText(billDetails.getCustomerName());
+        txtCarName.setText(billDetails.getCarName());
+        txtCarRate.setText(String.valueOf(billDetails.getCarRate()));
+        txtRentalDate.setText(billDetails.getRentalDate().toString());
+        txtReturnDate.setText(billDetails.getReturnDate().toString());
+        txtTotalAmount.setText(String.valueOf(billDetails.getTotalAmount()));
+        txtDiscountAmount.setText(String.valueOf(billDetails.getDiscountAmount()));
+        txtTotal.setText(String.valueOf(billDetails.getTotalAfterDiscount()));
+        
         return 0;
     }
     public BillViewLayer() {
@@ -97,8 +89,7 @@ public class BillViewLayer extends javax.swing.JPanel {
         System.err.println("Invalid regex pattern: " + ex.getMessage());
     }
     }   
-// print the pdf formated table 
-    private void generatePDF(String convertedString) {
+private void generatePDF(String convertedString) {
     try {
         // Create a new PDF document
         Document document = new Document(PageSize.A4);
@@ -109,23 +100,8 @@ public class BillViewLayer extends javax.swing.JPanel {
         // Open the document
         document.open();
 
-        // Create a table with the same number of columns as the Swing table
-        PdfPTable pdfTable = new PdfPTable(jTable1.getColumnCount());
-
-        // Add table headers
-        for (int i = 0; i < jTable1.getColumnCount(); i++) {
-            pdfTable.addCell(jTable1.getColumnName(i));
-        }
-
-        // Add table data
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            for (int j = 0; j < jTable1.getColumnCount(); j++) {
-                pdfTable.addCell(jTable1.getValueAt(i, j).toString());
-            }
-        }
-
-        // Add the table to the document
-        document.add(pdfTable);
+        // Add the BillPanel content to the document
+        document.add(billPanelToPdf());
 
         // Close the document
         document.close();
@@ -136,6 +112,46 @@ public class BillViewLayer extends javax.swing.JPanel {
         e.printStackTrace();
     }
 }
+
+// Convert the BillPanel to a PdfPTable and return it
+private PdfPTable billPanelToPdf() {
+    PdfPTable billPanelTable = new PdfPTable(2);
+
+    // Add bill details to the table
+    billPanelTable.addCell("Bill no:");
+    billPanelTable.addCell(txtBillno.getText());
+
+    billPanelTable.addCell("Date:");
+    billPanelTable.addCell(txtDate.getText());
+
+    billPanelTable.addCell("Customer Name:");
+    billPanelTable.addCell(txtCustomerName.getText());
+
+    billPanelTable.addCell("Car Name:");
+    billPanelTable.addCell(txtCarName.getText());
+
+    billPanelTable.addCell("Car Rate:");
+    billPanelTable.addCell(txtCarRate.getText());
+
+    billPanelTable.addCell("Rental date:");
+    billPanelTable.addCell(txtRentalDate.getText());
+
+    billPanelTable.addCell("Return date:");
+    billPanelTable.addCell(txtReturnDate.getText());
+
+    billPanelTable.addCell("Total Amount:");
+    billPanelTable.addCell(txtTotalAmount.getText());
+
+    billPanelTable.addCell("Discount Amount:");
+    billPanelTable.addCell(txtDiscountAmount.getText());
+
+    billPanelTable.addCell("Total:");
+    billPanelTable.addCell(txtTotal.getText());
+
+    return billPanelTable;
+}
+
+
 //Load the bills in the table
        private void loadBill() {
         BillController billController = new BillController();
@@ -144,10 +160,10 @@ public class BillViewLayer extends javax.swing.JPanel {
 
         for (Bill bill : billController.listBills()) {
             Object[] row = {
-                    bill.getRentalId(),
+                    bill.getBillNo(),
                     bill.getCarId(),
                     bill.getDate(),
-                   bill.getCustomerId()
+                    bill.getCustomerId()
             };
             model.addRow(row);
         }
@@ -167,13 +183,11 @@ public class BillViewLayer extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         ADEPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        billPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtBillno = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtDate = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtCarNo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -185,7 +199,7 @@ public class BillViewLayer extends javax.swing.JPanel {
         txtReturnDate = new javax.swing.JLabel();
         txtTotalAmount = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txtTotalAmount1 = new javax.swing.JLabel();
+        txtDiscountAmount = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -210,7 +224,7 @@ public class BillViewLayer extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        billPanel.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel1.setText("Bill no:");
 
@@ -219,10 +233,6 @@ public class BillViewLayer extends javax.swing.JPanel {
         jLabel2.setText("Date:");
 
         txtDate.setText("{Date}");
-
-        jLabel4.setText("Car No:");
-
-        txtCarNo.setText("{CarNo}");
 
         jLabel5.setText("Car Name:");
 
@@ -246,7 +256,7 @@ public class BillViewLayer extends javax.swing.JPanel {
 
         jLabel11.setText("Discount Amount:");
 
-        txtTotalAmount1.setText("{DiscountAmount}");
+        txtDiscountAmount.setText("{DiscountAmount}");
 
         jLabel12.setText("Total:");
 
@@ -281,116 +291,110 @@ public class BillViewLayer extends javax.swing.JPanel {
 
         txtCustomerName.setText("{CustomerName}");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout billPanelLayout = new javax.swing.GroupLayout(billPanel);
+        billPanel.setLayout(billPanelLayout);
+        billPanelLayout.setHorizontalGroup(
+            billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(billPanelLayout.createSequentialGroup()
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(billPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBillno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(billPanelLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(billPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(141, 141, 141)
                                 .addComponent(txtReturnDate))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
+                            .addGroup(billPanelLayout.createSequentialGroup()
+                                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
                                 .addGap(150, 150, 150)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCarRate)
-                                    .addComponent(txtCarNo)
                                     .addComponent(txtCarName)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(billPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(142, 142, 142)
                                 .addComponent(txtRentalDate))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(billPanelLayout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
                         .addComponent(txtCustomerName)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billPanelLayout.createSequentialGroup()
+                        .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(billPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(25, 25, 25)
                                 .addComponent(txtTotalAmount))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(billPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotalAmount1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtDiscountAmount))
+                            .addGroup(billPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(76, 76, 76)
                                 .addComponent(txtTotal)))
                         .addGap(49, 49, 49))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billPanelLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        billPanelLayout.setVerticalGroup(
+            billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(billPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtBillno))
                 .addGap(2, 2, 2)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtCustomerName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCarNo))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(35, 35, 35)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtCarName))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(36, 36, 36)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtCarRate))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(40, 40, 40)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtRentalDate))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(40, 40, 40)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtReturnDate))
-                .addGap(59, 59, 59)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(36, 36, 36)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtTotalAmount))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(txtTotalAmount1))
+                    .addComponent(txtDiscountAmount))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(billPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTotal)
                     .addComponent(jLabel12))
                 .addGap(18, 18, 18))
@@ -445,7 +449,7 @@ public class BillViewLayer extends javax.swing.JPanel {
                 .addContainerGap(208, Short.MAX_VALUE))
             .addGroup(ADEPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(billPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ADEPanelLayout.setVerticalGroup(
@@ -454,7 +458,7 @@ public class BillViewLayer extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(billPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(printPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -494,9 +498,10 @@ public class BillViewLayer extends javax.swing.JPanel {
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFolder = fileChooser.getSelectedFile().getPath();
                 String convertedString = selectedFolder.replace("\\", "\\\\");
-                generatePDF(convertedString+"\\\\billTable.pdf");
+                generatePDF(convertedString+"\\\\bill.pdf");
                 
-            }
+          }
+ 
     }//GEN-LAST:event_printPDFActionPerformed
 
     private void searchButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButton1ActionPerformed
@@ -506,19 +511,18 @@ public class BillViewLayer extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ADEPanel;
+    private javax.swing.JPanel billPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -528,14 +532,13 @@ public class BillViewLayer extends javax.swing.JPanel {
     private javax.swing.JPanel searchPanel;
     private javax.swing.JLabel txtBillno;
     private javax.swing.JLabel txtCarName;
-    private javax.swing.JLabel txtCarNo;
     private javax.swing.JLabel txtCarRate;
     private javax.swing.JLabel txtCustomerName;
     private javax.swing.JLabel txtDate;
+    private javax.swing.JLabel txtDiscountAmount;
     private javax.swing.JLabel txtRentalDate;
     private javax.swing.JLabel txtReturnDate;
     private javax.swing.JLabel txtTotal;
     private javax.swing.JLabel txtTotalAmount;
-    private javax.swing.JLabel txtTotalAmount1;
     // End of variables declaration//GEN-END:variables
 }

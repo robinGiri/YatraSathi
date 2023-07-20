@@ -4,14 +4,14 @@
  */
 package view.layers;
 
-import controller.HomeController;
-import java.awt.FlowLayout;
-import model.Income;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
+//import controller.HomeController;
+//import java.awt.FlowLayout;
+////import model.Income;
+//import org.jfree.chart.ChartFactory;
+//import org.jfree.chart.ChartPanel;
+//import org.jfree.chart.JFreeChart;
+//import org.jfree.chart.plot.PlotOrientation;
+//import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -24,46 +24,46 @@ public class DashBoardLayer extends javax.swing.JPanel {
      */
     public DashBoardLayer() {
         initComponents();
-        createGraph();
+        //createGraph();
 
     }
-           private void createGraph() {
-        // Create the dataset
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        HomeController homecontroller = new HomeController();
-        for (Income income : homecontroller.showIncomeData() ){
-            double Total_income = income.getTotal_income();
-            int Rental_month = income.getRental_month();
-            int Rental_year = income.getRental_year();
-            dataset.addValue((Number)Total_income,Rental_month,Rental_year);
-            
-        }
-
-        // Create the chart
-        JFreeChart chart = ChartFactory.createBarChart(
-                "Monthly Revenue", // Chart title
-                "Month", // X-axis label
-                "Revenue", // Y-axis label
-                dataset, // Dataset
-                PlotOrientation.VERTICAL,
-                true, // Include legend
-                true, // Include tooltips
-                false // Include URLs
-        );
-
-        // Create a chart panel to hold the chart
-        ChartPanel chartPanel = new ChartPanel(chart);
-
-        // Set the layout manager of jPanel3 to FlowLayout
-        DashboardGraph.setLayout(new FlowLayout());
-
-        // Add the chart panel to jPanel3
-        DashboardGraph.add(chartPanel);
-
-        // Repaint jPanel3 to reflect the changes
-        DashboardGraph.revalidate();
-        DashboardGraph.repaint();
-    }
+//           private void createGraph() {
+//        // Create the dataset
+//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//        HomeController homecontroller = new HomeController();
+//        for (Income income : homecontroller.showIncomeData() ){
+//            double Total_income = income.getTotal_income();
+//            int Rental_month = income.getRental_month();
+//            int Rental_year = income.getRental_year();
+//            dataset.addValue((Number)Total_income,Rental_month,Rental_year);
+//            
+//        }
+//
+//        // Create the chart
+//        JFreeChart chart = ChartFactory.createBarChart(
+//                "Monthly Revenue", // Chart title
+//                "Month", // X-axis label
+//                "Revenue", // Y-axis label
+//                dataset, // Dataset
+//                PlotOrientation.VERTICAL,
+//                true, // Include legend
+//                true, // Include tooltips
+//                false // Include URLs
+//        );
+//
+//        // Create a chart panel to hold the chart
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//
+//        // Set the layout manager of jPanel3 to FlowLayout
+//        DashboardGraph.setLayout(new FlowLayout());
+//
+//        // Add the chart panel to jPanel3
+//        DashboardGraph.add(chartPanel);
+//
+//        // Repaint jPanel3 to reflect the changes
+//        DashboardGraph.revalidate();
+//        DashboardGraph.repaint();
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
